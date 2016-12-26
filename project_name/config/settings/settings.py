@@ -79,15 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project_name.config.wsgi.application'
 
-# Database
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, '../security/db.sqlite3'),
-#     }
-# }
-
 # Password validation
 #
 # AUTH_PASSWORD_VALIDATORS = [
@@ -106,9 +97,22 @@ WSGI_APPLICATION = 'project_name.config.wsgi.application'
 # ]
 
 # Internationalization
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('es', _('Spanish')),
+    # ('en', _('English'))
+]
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'en'
+
+LOCALE_PATHS = (
+    str(PROJECT_ROOT.path('locale')),
+)
+
+FIXTURE_DIR = (
+    str(PROJECT_ROOT.path('fixture')),
+)
+
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
