@@ -1,0 +1,13 @@
+#Core
+Django
+
+#WSGI HTTP Server
+gunicorn
+pytz
+
+#Configuration
+django-environ
+pillow
+
+#Database
+psycopg2
