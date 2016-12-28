@@ -5,7 +5,7 @@ environ.Env.read_env(str(env_file))
 
 DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 SECRET_KEY = open(SECRET_FILE).read().strip()
 
@@ -19,10 +19,11 @@ CACHES = {
 }
 
 DJANGO_APPS = (
-    'debug_toolbar',
+
 )
 THIRD_PARTY_APPS = (
-
+    'debug_toolbar',
+    'django_extensions'
 )
 LOCAL_APPS = (
 
@@ -60,7 +61,7 @@ DEBUG_TOOLBAR_CONFIG = {
 DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
 # https://www.google.com/settings/security/lesssecureapps
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND')
 EMAIL_CONFIG = env.email_url('EMAIL_URL')
 vars().update(EMAIL_CONFIG)
 

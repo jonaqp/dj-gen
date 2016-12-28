@@ -1,4 +1,18 @@
+-r base.txt
+
 #Debugging
 ipdb
 ipython
 django-debug-toolbar
+coverage
+django-coverage-plugin
+Sphinx
+django-extensions
+Werkzeug
+
+
+
+django-test-plus
+factory-boy
+pytest-django==3.1.2
+pytest-sugar==0.7.1
