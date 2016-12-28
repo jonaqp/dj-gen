@@ -5,7 +5,9 @@ import environ
 from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = environ.Path(__file__) - 3
-APPS_DIR = PROJECT_ROOT.path('apps')
+print(PROJECT_ROOT)
+APPS_DIR = PROJECT_ROOT.path('apps/')
+print(APPS_DIR)
 env = environ.Env()
 
 SECRET_FILE = str(PROJECT_ROOT.path('security/SECRET.key'))
@@ -38,10 +40,10 @@ DJANGO_APPS = (
 )
 
 LOCAL_APPS = (
-
+    'project_name.apps.core.apps.CoreConfig',
+    'project_name.apps.user.apps.UserConfig',
 )
 THIRD_PARTY_APPS = (
-
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -141,8 +143,11 @@ STATICFILES_FINDERS = (
 STATIC_ROOT = str(PROJECT_ROOT.path('run/static'))
 MEDIA_ROOT = str(PROJECT_ROOT.path('run/media'))
 
-
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+AUTH_USER_MODEL = 'user.User'
+LOGIN_URL = '/login/'
+LOGOUT_REDIRECT_URL = '/login/'
