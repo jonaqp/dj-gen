@@ -8,6 +8,8 @@ from django.views import defaults as default_views
 
 urlpatterns = [
     url(settings.ADMIN_URL, include(admin.site.urls)),
+    url(r'^', include('project_name.apps.core.urls')),
+    url(r'^', include('project_name.apps.user.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

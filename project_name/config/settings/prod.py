@@ -8,9 +8,9 @@ ALLOWED_HOSTS = ["*"]
 
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader',
-     TEMPLATES[0]['OPTIONS']['loaders']),
+    ('django.template.loaders.cached.Loader', RAW_TEMPLATE_LOADERS),
 ]
+
 SECRET_KEY = env('SECRET_KEY')
 
 DATABASES = {
@@ -39,6 +39,11 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND')
 EMAIL_CONFIG = env.email_url('EMAIL_URL_PROD')
 vars().update(EMAIL_CONFIG)
 
+
+# Caching sessions.
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = "default"
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
@@ -52,3 +57,27 @@ SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
+
+
+LOGGING['loggers'].update({
+    '': {
+        'handlers': ['sentry'],
+        'level': 'ERROR',
+        'propagate': False,
+    },
+    '{{ project_name|lower }}': {
+        'handlers': ['project'],
+        'level': 'WARNING',
+        'propagate': True,
+    },
+    'django': {
+        'handlers': ['django'],
+        'level': 'WARNING',
+        'propagate': True,
+    },
+    'django.security.DisallowedHost': {
+        'handlers': ['django'],
+        'level': 'CRITICAL',
+        'propagate': False,
+    },
+})

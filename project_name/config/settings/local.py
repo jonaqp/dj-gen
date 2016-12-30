@@ -66,3 +66,30 @@ EMAIL_CONFIG = env.email_url('EMAIL_URL')
 vars().update(EMAIL_CONFIG)
 
 ADMIN_URL = env('ADMIN_URL')
+
+# SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_HTTPONLY = False
+# CSRF_COOKIE_SECURE = False
+
+LOGGING['loggers'].update({
+    '{{ project_name|lower }}': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+    'django': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+    'django.db.backends': {
+        'handlers': ['django'],
+        'level': 'DEBUG',
+        'propagate': False,
+    },
+    'performance': {
+        'handlers': ['console'],
+        'level': 'INFO',
+        'propagate': True,
+    },
+})

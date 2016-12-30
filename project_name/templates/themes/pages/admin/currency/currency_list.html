@@ -1,0 +1,27 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                 {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive" style="display: block;">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}

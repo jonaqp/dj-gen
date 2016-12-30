@@ -1,13 +1,13 @@
 """
 Django settings for dj_gen project.
 """
+import os
+
 import environ
 from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = environ.Path(__file__) - 3
-print(PROJECT_ROOT)
 APPS_DIR = PROJECT_ROOT.path('apps/')
-print(APPS_DIR)
 env = environ.Env()
 
 SECRET_FILE = str(PROJECT_ROOT.path('security/SECRET.key'))
@@ -54,11 +54,17 @@ MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'project_name.config.urls'
+
+RAW_TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
 
 TEMPLATES = [
     {
@@ -68,10 +74,7 @@ TEMPLATES = [
         ],
         'OPTIONS': {
             'debug': DEBUG,
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
+            'loaders': RAW_TEMPLATE_LOADERS,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -135,6 +138,10 @@ USE_TZ = False
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+STATICFILES_DIRS = [
+    str(PROJECT_ROOT.path('static')),
+]
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -151,3 +158,85 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = '/login/'
 LOGOUT_REDIRECT_URL = '/login/'
+
+LOGGING_DIR = str(PROJECT_ROOT.path('log'))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s %(levelname)s %(name)s %(module)s %(process)d %(thread)d  %(message)s'
+        },
+        'timestamped': {
+            'format': '%(asctime)s %(levelname)s %(name)s  %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s  %(message)s'
+        },
+        'performance': {
+            'format': '%(asctime)s %(process)d | %(thread)d | %(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'timestamped'
+        },
+        'django': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': str(PROJECT_ROOT.path('log/django.log')),
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
+            'backupCount': 10
+        },
+        'project': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': str(PROJECT_ROOT.path('log/{{ project_name|lower }}.log')),
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
+            'backupCount': 10
+        },
+        'performance': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'performance.log'),
+            'formatter': 'performance',
+            'maxBytes': 1024 * 1024 * 10,  # 10 MB
+            'backupCount': 10
+        },
+    },
+    'loggers': {
+        '{{ project_name|lower }}': {
+            'handlers': ['project'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    }
+}

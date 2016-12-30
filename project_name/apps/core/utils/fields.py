@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-
 from ..constants import SELECT_DEFAULT, STATUS_MODEL1, ENABLED
 from ..queryset import AuditableManager
 
@@ -27,34 +26,22 @@ class TimeStampedModel(models.Model):
         related_name="%(app_label)s_%(class)s_modified_by")
 
     def save(self, *args, **kwargs):
-        if self.id:
+        print(args)
+        if self.pk:
             self.modified_by = CuserMiddleware.get_user()
             self.date_modified = datetime()
         else:
             self.created_by = CuserMiddleware.get_user()
             self.date_created = datetime()
             kwargs['force_insert'] = False
-        super(TimeStampedModel, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     def delete(self, force=False, *args, **kwargs):
         self.is_deleted = True
         self.save()
         if force:
-            super(TimeStampedModel, self).delete(*args, **kwargs)
-
-    # def save(self, *args, **kwargs):
-    #     if self.pk:
-    #         self.date_modified = datetime()
-    #     else:
-    #         self.date_created = datetime()
-    #         kwargs['force_insert'] = False
-    #     super(TimeStampedModel, self).save(*args, **kwargs)
-    #
-    # def delete(self, force=False, *args, **kwargs):
-    #     self.is_deleted = True
-    #     self.save()
-    #     if force:
-    #         super(TimeStampedModel, self).delete(*args, **kwargs)
+            return super().delete(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -62,6 +49,7 @@ class TimeStampedModel(models.Model):
 
 class UUIDModel(models.Model):
     uid = models.UUIDField(editable=False, default=uuid.uuid4)
+
     class Meta:
         abstract = True
 
@@ -93,8 +81,7 @@ class BaseModel(ManagerBase, TimeStampedModel, StatusModel):
     class Meta:
         abstract = True
 
+
 class BaseModel2(ManagerBase, UUIDModel, TimeStampedModel, StatusModel):
     class Meta:
         abstract = True
-
-

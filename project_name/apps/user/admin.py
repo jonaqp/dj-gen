@@ -69,12 +69,8 @@ class MyUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password', 'is_admin')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_admin',
-                                       'groups', 'permissions')}),
-        ('Other Informations', {
-            'classes': ('collapse', 'open'),
-            'fields': ('email', 'password',)
-        }),
+        (_('Permissions'), {'fields': ('is_active', 'is_admin',)}),
+
     )
     search_fields = ('email',)
     ordering = ('last_login',)
