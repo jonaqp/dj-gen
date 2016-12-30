@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from django.conf import settings
 from django.db import models
@@ -26,7 +27,6 @@ class TimeStampedModel(models.Model):
         related_name="%(app_label)s_%(class)s_modified_by")
 
     def save(self, *args, **kwargs):
-        print(args)
         if self.pk:
             self.modified_by = CuserMiddleware.get_user()
             self.date_modified = datetime()
