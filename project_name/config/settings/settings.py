@@ -10,20 +10,6 @@ PROJECT_ROOT = environ.Path(__file__) - 3
 APPS_DIR = PROJECT_ROOT.path('apps/')
 env = environ.Env()
 
-SECRET_FILE = str(PROJECT_ROOT.path('security/SECRET.key'))
-try:
-    from django.utils.crypto import get_random_string
-
-    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!$%&()=+-_'
-    SECRET_KEY = get_random_string(50, chars)
-    with open(SECRET_FILE, 'w') as f:
-        f.write(SECRET_KEY)
-        f.close()
-except IOError:
-    raise Exception('Could not open %s for writing!' % SECRET_FILE)
-
-SECRET_KEY = 'zmji3zc+k_(&k+onhkl!if3z+dr)4bp-g_vye5v369532+prma'
-
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -55,6 +41,7 @@ MIDDLEWARE = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'project_name.apps.core.middleware.current_user.UserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -240,3 +227,15 @@ LOGGING = {
         },
     }
 }
+
+SECRET_FILE = str(PROJECT_ROOT.path('security/SECRET.key'))
+try:
+    from django.utils.crypto import get_random_string
+
+    chars = 'abcdefghijklmnopqrstuvwxyz0123456789!$%&()=+-_'
+    SECRET_KEY = get_random_string(50, chars)
+    with open(SECRET_FILE, 'w') as f:
+        f.write(SECRET_KEY)
+        f.close()
+except IOError:
+    raise Exception('Could not open %s for writing!' % SECRET_FILE)

@@ -1,19 +1,20 @@
 import threading
+from django.utils.deprecation import MiddlewareMixin
 
 from django.conf import settings
 
 
-class UserMiddleware(object):
+class UserMiddleware(MiddlewareMixin):
     __users = {}
 
     def process_request(self, request):
         self.__class__.set_user(request.user)
 
-    def process_response(self, request, response):
+    def process_response(self, response):
         self.__class__.del_user()
         return response
 
-    def process_exception(self, request, exception):
+    def process_exception(self):
         self.__class__.del_user()
 
     @classmethod
