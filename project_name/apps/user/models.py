@@ -131,9 +131,9 @@ class UserProfile(BaseModel):
             return static('themes/img/default/default-user-male.jpg')
 
     def thumb(self):
-        if self.profile_image:
+        if self.logo_profile:
             return format_html(u'<img src="{0:s}" width=60 height=60 />'
-                               .format(self.profile_image.url))
+                               .format(self.logo_profile.url))
         else:
             img = static('assets/img/uncompressed/default_profile.png')
             return format_html(
