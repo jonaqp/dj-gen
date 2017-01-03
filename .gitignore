@@ -94,3 +94,4 @@ ENV/
 
 /node_modules/
 /project_name/run/static/
+/project_name/static/themes/global/
