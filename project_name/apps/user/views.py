@@ -28,7 +28,6 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     def dispatch(self, request, *args, **kwargs):
         request.session.set_test_cookie()
-        print(request.session.set_test_cookie())
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

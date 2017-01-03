@@ -10,11 +10,11 @@ class UserMiddleware(MiddlewareMixin):
     def process_request(self, request):
         self.__class__.set_user(request.user)
 
-    def process_response(self, response):
+    def process_response(self, request, response):
         self.__class__.del_user()
         return response
 
-    def process_exception(self):
+    def process_exception(self, request, exception):
         self.__class__.del_user()
 
     @classmethod

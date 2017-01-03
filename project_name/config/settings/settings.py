@@ -25,11 +25,15 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
+THIRD_PARTY_APPS = (
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+)
+
 LOCAL_APPS = (
     'project_name.apps.core.apps.CoreConfig',
     'project_name.apps.user.apps.UserConfig',
-)
-THIRD_PARTY_APPS = (
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -143,8 +147,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL = 'user.User'
-LOGIN_URL = '/login/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
 
 LOGGING_DIR = str(PROJECT_ROOT.path('log'))
 LOGGING = {

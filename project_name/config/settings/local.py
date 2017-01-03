@@ -14,9 +14,9 @@ DATABASES = {
     'default': env.db("SQLITE_URL"),
 }
 
-CACHES = {
-    'default': env.cache('REDIS_URL')
-}
+# CACHES = {
+#     'default': env.cache('REDIS_URL')
+# }
 
 DJANGO_APPS = (
 
