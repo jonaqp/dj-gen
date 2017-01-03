@@ -1,23 +1,8 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 {% load i18n %}
-{% load account %}
+{% load account socialaccount %}
 {% load filter %}
 {% load static %}
-
-{% block class_body %}login-container{% endblock class_body %}
-
-
-{% block header %}
-    <div class="navbar navbar-inverse bg-blue">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="javascript:void(0)">{{ project_name }}</a>
-            <ul class="nav navbar-nav pull-right visible-xs-block">
-                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-            </ul>
-        </div>
-    </div>
-{% endblock header %}
-
 {% block content %}
     {% block page-content-siderbar %}
     {% endblock page-content-siderbar %}
@@ -29,10 +14,8 @@
 
             {% block sidebar_page_content %}
                 <div class="content">
-
                     <form>
                         <div class="panel panel-body col-md-6 col-md-offset-3">
-
                             <div class="form-group text-center">
                                 <h1>{% trans "Verify Your E-mail Address" %}</h1>
                                 <p class="no-margin">
@@ -52,15 +35,11 @@
                         </div>
 
                     </form>
-
                     <div class="footer text-muted text-center">
-                        {{ project_name }} © 2015.
-                    </div>
+						{{ project_name }} © 2015.
+					</div>
                 </div>
             {% endblock sidebar_page_content %}
         </div>
     {% endblock page-content-wrapper %}
-{% endblock content %}
-
-{% block footer %}
-{% endblock footer %}
+{% endblock %}

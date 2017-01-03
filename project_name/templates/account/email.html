@@ -24,11 +24,9 @@
                                     {% for emailaddress in user.emailaddress_set.all %}
                                         <div class="radio">
                                             <label>
-                                                <div class="choice">
-                                                    <span class="checked">
-                                                        <input id="email_radio_{{ forloop.counter }}" class="styled" type="radio" name="email" {% if emailaddress.primary %}checked="checked"{% endif %} value="{{ emailaddress.email }}"/>
-                                                    </span>
-                                                </div>
+                                                <span>
+                                                    <input id="email_radio_{{ forloop.counter }}" class="styled" type="radio" name="email" {% if emailaddress.primary %}checked="checked"{% endif %} value="{{ emailaddress.email }}"/>
+                                                </span>
                                                 {{ emailaddress.email }}
                                                 {% if emailaddress.verified %}
                                                     <span class="verified">{% trans "Verified" %}</span>
@@ -95,16 +93,19 @@
 {% endblock %}
 
 {% block js_plugins_before %}
-    <script type="text/javascript">
-        $(function(){
-            $("button[name='action_remove']").click(function(){
-                if(confirm("{% trans 'Do you really want to remove the selected e-mail address?' %}")) {
-                    return true;
-                }
-                return false;
+   <script type="text/javascript">
+        (function() {
+          var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+          var actions = document.getElementsByName('action_remove');
+          if (actions.length) {
+            actions[0].addEventListener("click", function(e) {
+              if (! confirm(message)) {
+                e.preventDefault();
+              }
             });
-        });
-    </script>
+          }
+        })();
+   </script>
 {% endblock js_plugins_before %}
 
 
