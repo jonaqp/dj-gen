@@ -52,9 +52,7 @@ CONFIG_DEFAULTS = {
     'SHOW_COLLAPSED': True,
     'SQL_WARNING_THRESHOLD': 100,
 }
-INTERNAL_IPS = [
-    # '127.0.0.1',
-]
+INTERNAL_IPS = ['localhost', '127.0.0.1', '[::1]']
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
