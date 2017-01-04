@@ -1,16 +1,21 @@
 from django.conf import settings
-from django.contrib.auth.models import (AbstractBaseUser, Permission)
+from django.contrib.auth.models import (
+    AbstractBaseUser, Permission, Group
+)
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.encoding import force_text
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 from project_name.apps.core import constants as core_constants
-from project_name.apps.core.utils.fields import BaseModel
+from project_name.apps.core.manager import UserManager
+from project_name.apps.core.models import Role, Team
+from project_name.apps.core.utils.fields import BaseModel2
 from project_name.apps.core.utils.upload_folder import upload_user_profile
-from .manager import UserManager
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -29,6 +34,14 @@ class CustomUser(AbstractBaseUser):
                                     blank=True, null=True, unique=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    team = models.ManyToManyField(
+        Team, verbose_name=_('teams'), blank=True,
+        related_name="user_set", related_query_name="user",
+    )
+    user_roles = models.ManyToManyField(
+        Role, verbose_name=_('user roles'), blank=True,
+        related_name="user_set", related_query_name="user",
+    )
 
     objects = UserManager()
 
@@ -96,7 +109,7 @@ class User(CustomUser):
         db_table = 'auth_user'
 
 
-class UserProfile(BaseModel):
+class UserProfile(BaseModel2):
     profile_choice = core_constants.SELECT_DEFAULT \
                      + core_constants.TYPE_IDENTITY_DOCUMENT_OPTIONS
     gender_choice = core_constants.SELECT_DEFAULT \
@@ -121,6 +134,7 @@ class UserProfile(BaseModel):
     def get_full_name(self):
         return "{0}{1}".format(self.first_name, self.last_name)
 
+    @property
     def get_user_email(self):
         return self.user.email
 
@@ -143,4 +157,13 @@ class UserProfile(BaseModel):
     thumb.allow_tags = True
 
     class Meta:
+        verbose_name = _("Profile")
+        verbose_name_plural = _("Profiles")
         db_table = 'user_profile'
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+

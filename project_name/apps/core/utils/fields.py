@@ -30,7 +30,6 @@ class CurrentUserField(ForeignKey):
             if user:
                 setattr(model_instance, self.attname, user.pk)
                 return user.pk
-
         return super().pre_save(model_instance, add)
 
 

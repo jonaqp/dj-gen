@@ -1,9 +1,25 @@
 from django.contrib.auth.models import BaseUserManager
+from django.db import models
 
-from project_name.apps.core.utils.funct_dates import str_datetime as datetime
+from .utils.funct_dates import str_datetime as datetime
+
+
+class TeamManager(models.Manager):
+    use_in_migrations = True
+
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
+class RoleManager(models.Manager):
+    use_in_migrations = True
+
+    def get_by_natural_key(self, codename, app_label, model):
+        return self.get(codename=codename, )
 
 
 class UserManager(BaseUserManager):
+    use_in_migrations = True
 
     def _create_user(self, email, password, is_admin=False,
                      **extra_fields):

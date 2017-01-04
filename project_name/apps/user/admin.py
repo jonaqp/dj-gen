@@ -2,14 +2,17 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
 from .models import User, UserProfile
 
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", 'mobile_phone', 'thumb', 'is_deleted']
+class UserProfileAdminInline(admin.StackedInline):
+    model = UserProfile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
 
 
 class UserCreationForm(forms.ModelForm):
@@ -53,6 +56,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class MyUserAdmin(UserAdmin):
+    inlines = [UserProfileAdminInline]
     list_per_page = 3
     date_hierarchy = 'last_login'
     form = UserChangeForm
@@ -69,12 +73,15 @@ class MyUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password', 'is_admin')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_admin',)}),
+        (_('Permissions'), {'fields': ('is_active', 'is_admin',
+                                       'team', 'user_roles')}),
+        (_('Important dates'), {'fields': ('last_login',)}),
 
     )
+    filter_horizontal = ('team', 'user_roles',)
     search_fields = ('email',)
     ordering = ('last_login',)
-    filter_horizontal = ()
 
 
 admin.site.register(User, MyUserAdmin)
+admin.site.unregister(Group)
