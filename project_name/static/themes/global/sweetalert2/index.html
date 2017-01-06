@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   <title>SweetAlert2 - supported fork of t4t5/sweetalert</title>
 
-  <link rel="icon" href="./docs/favicon.png">
-  <link rel="apple-touch-icon" href="./docs/apple-touch-icon.png">
+  <link rel="icon" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette">
-  <link rel="stylesheet" href="./docs/example.css">
-  <link rel="stylesheet" href="./docs/buttons.css">
+  <link rel="stylesheet" href="./assets/example.css">
+  <link rel="stylesheet" href="./assets/buttons.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.2/animate.css">
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
   <!-- This is what you need -->
-  <script src="https://cdn.jsdelivr.net/es6-promise/latest/es6-promise.min.js"></script> <!-- IE support -->
+  <script src="https://cdn.jsdelivr.net/es6-promise/latest/es6-promise.auto.min.js"></script> <!-- IE support -->
   <script src="./dist/sweetalert2.js"></script>
   <link rel="stylesheet" href="./dist/sweetalert2.min.css">
   <!--.......................-->
@@ -115,7 +115,15 @@ swal({
   title: <span class="str">'Auto close alert!'</span>,
   text: <span class="str">'I will close in 2 seconds.'</span>,
   timer: <span class="val">2000</span>
-})</pre>
+}).then(
+  <span class="func"><i>function</i></span> () {},
+  <span class="comment">// handling the promise rejection</span>
+  <span class="func"><i>function</i></span> (dismiss) {
+    <span class="tag">if</span> (dismiss === <span class="str">'timer'</span>) {
+      console.log(<span class="str">'I was closed by the timer'</span>)
+    }
+  }
+)</pre>
     </li>
 
     <li class="html">
@@ -170,7 +178,7 @@ swal({
   confirmButtonColor: <span class="str">'#3085d6'</span>,
   cancelButtonColor: <span class="str">'#d33'</span>,
   confirmButtonText: <span class="str">'Yes, delete it!'</span>
-}).then(<span class="func"><i>function</i></span>() {
+}).then(<span class="func"><i>function</i></span> () {
   swal(
     <span class="str">'Deleted!'</span>,
     <span class="str">'Your file has been deleted.'</span>,
@@ -197,13 +205,13 @@ swal({
   confirmButtonClass: <span class="str">'btn btn-success'</span>,
   cancelButtonClass: <span class="str">'btn btn-danger'</span>,
   buttonsStyling: <span class="val">false</span>
-}).then(<span class="func"><i>function</i></span>() {
+}).then(<span class="func"><i>function</i></span> () {
   swal(
     <span class="str">'Deleted!'</span>,
     <span class="str">'Your file has been deleted.'</span>,
     <span class="str">'success'</span>
   )
-}, <span class="func"><i>function</i></span>(dismiss) {
+}, <span class="func"><i>function</i></span> (dismiss) {
   <span class="comment">// dismiss can be 'cancel', 'overlay',</span>
   <span class="comment">// 'close', and 'timer'</span>
   <span class="tag">if</span> (dismiss === <span class="str">'cancel'</span>) {
@@ -258,8 +266,8 @@ swal({
   showCancelButton: <span class="val">true</span>,
   confirmButtonText: <span class="str">'Submit'</span>,
   showLoaderOnConfirm: <span class="val">true</span>,
-  preConfirm: <span class="func"><i>function</i></span>(email) {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve, reject) {
+  preConfirm: <span class="func"><i>function</i></span> (email) {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve, reject) {
       <span class="func">setTimeout</span>(<span class="func">function</span>() {
         <span class="tag">if</span> (email === <span class="str">'taken@example.com'</span>) {
           reject(<span class="str">'This email is already taken.'</span>)
@@ -270,7 +278,7 @@ swal({
     })
   },
   allowOutsideClick: <span class="val">false</span>
-}).then(<span class="func"><i>function</i></span>(email) {
+}).then(<span class="func"><i>function</i></span> (email) {
   swal({
     type: <span class="str">'success'</span>,
     title: <span class="str">'Ajax request finished!'</span>,
@@ -302,7 +310,7 @@ swal.setDefaults({
   <span class="str">'Question 3'</span>
 ]
 
-swal.queue(steps).then(<span class="func"><i>function</i></span>() {
+swal.queue(steps).then(<span class="func"><i>function</i></span> (result) {
   swal.resetDefaults()
   swal({
     title: <span class="str">'All done!'</span>,
@@ -313,7 +321,7 @@ swal.queue(steps).then(<span class="func"><i>function</i></span>() {
     confirmButtonText: <span class="str">'Lovely!'</span>,
     showCancelButton: <span class="val">false</span>
   })
-}, <span class="func"><i>function</i></span>() {
+}, <span class="func"><i>function</i></span> () {
   swal.resetDefaults()
 })</pre>
     </li>
@@ -331,10 +339,10 @@ swal.queue([{
     <span class="str">'Your public IP will be received '</span> +
     <span class="str">'via AJAX request'</span>,
   showLoaderOnConfirm: <span class="val">true</span>,
-  preConfirm: <span class="func"><i>function</i></span>() {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve) {
+  preConfirm: <span class="func"><i>function</i></span> () {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve) {
       $.get(<span class="str">'https://api.ipify.org?format=json'</span>)
-        .done(<span class="func"><i>function</i></span>(data) {
+        .done(<span class="func"><i>function</i></span> (data) {
           swal.insertQueueStep(data.ip)
           resolve()
         })
@@ -364,7 +372,7 @@ swal.queue([{
     <li>
       <p>Initialize the plugin by referencing the necessary files:</p>
 <pre><span class="comment">&lt;!-- for IE support --&gt;</span>
-&lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="str">"bower_components/es6-promise/es6-promise.min.js"</span>&gt;&lt;/<span class="tag">script</span>&gt
+&lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="str">"bower_components/es6-promise/es6-promise.auto.min.js"</span>&gt;&lt;/<span class="tag">script</span>&gt
 
 &lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="str">"bower_components/sweetalert2/dist/sweetalert2.min.js"</span>&gt;&lt;/<span class="tag">script</span>&gt
 &lt;<span class="tag">link</span> <span class="attr">rel</span>=<span class="str">"stylesheet"</span> <span class="tag">href</span>=<span class="str">"bower_components/sweetalert2/dist/sweetalert2.min.css"</span>&gt;</pre>
@@ -408,7 +416,12 @@ swal({
       <tr>
         <td><b>title</b></td>
         <td><i>null</i></td>
-        <td>The title of the modal. It can either be added to the object under the key "title" or passed as the first parameter of the function.</td>
+        <td>The title of the modal, as HTML. It can either be added to the object under the key "title" or passed as the first parameter of the function.</td>
+      </tr>
+      <tr>
+        <td><b>titleText</b></td>
+        <td><i>null</i></td>
+        <td>The title of the modal, as text. Useful to avoid HTML injection.</td>
       </tr>
       <tr>
         <td><b>text</b></td>
@@ -566,32 +579,32 @@ swal({
         <td><i>null</i></td>
         <td>A custom CSS class for the customized icon.</td>
       </tr>
-      <tr>
+      <tr id="input-placeholder">
         <td><b>inputPlaceholder</b></td>
         <td><i>''</i></td>
         <td>Input field placeholder.</td>
       </tr>
-      <tr>
+      <tr id="input-value">
         <td><b>inputValue</b></td>
         <td><i>''</i></td>
         <td>Input field initial value.</td>
       </tr>
-      <tr>
+      <tr id="input-options">
         <td><b>inputOptions</b></td>
         <td><i>{} or Promise</i></td>
         <td>If <strong>input</strong> parameter is set to <strong>"select"</strong> or <strong>"radio"</strong>, you can provide options. Object keys will represent options values, object values will represent options text values.</td>
       </tr>
-      <tr>
+      <tr id="input-auto-trim">
         <td><b>inputAutoTrim</b></td>
         <td><i>true</i></td>
         <td>Automatically remove whitespaces from both ends of a result string. Set this parameter to <strong>false</strong> to disable auto-trimming.</td>
       </tr>
-      <tr>
+      <tr id="input-validator">
         <td><b>inputValidator</b></td>
         <td><i>null</i></td>
         <td>Validator for input field, should return Promise, see <a href="#select-box">usage example</a>.</td>
       </tr>
-      <tr>
+      <tr id="input-class">
         <td><b>inputClass</b></td>
         <td><i>null</i></td>
         <td>A custom CSS class for the input field.</td>
@@ -721,8 +734,8 @@ swal({
   title: <span class="str">'Input something'</span>,
   input: <span class="str">'text'</span>,
   showCancelButton: <span class="val">true</span>,
-  inputValidator: <span class="func"><i>function</i></span>(value) {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve, reject) {
+  inputValidator: <span class="func"><i>function</i></span> (value) {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve, reject) {
       <span class="tag">if</span> (value) {
         resolve()
       } <span class="tag">else</span> {
@@ -730,7 +743,7 @@ swal({
       }
     })
   }
-}).then(<span class="func"><i>function</i></span>(result) {
+}).then(<span class="func"><i>function</i></span> (result) {
   swal({
     type: <span class="str">'success'</span>,
     html: <span class="str">'You entered: '</span> + result
@@ -747,7 +760,7 @@ swal({
 swal({
   title: <span class="str">'Input email address'</span>,
   input: <span class="str">'email'</span>
-}).then(<span class="func"><i>function</i></span>(email) {
+}).then(<span class="func"><i>function</i></span> (email) {
   swal({
     type: <span class="str">'success'</span>,
     html: <span class="str">'Entered email: '</span> + email
@@ -769,7 +782,7 @@ swal({
     <span class="str">'autocapitalize'</span>: <span class="str">'off'</span>,
     <span class="str">'autocorrect'</span>: <span class="str">'off'</span>
   }
-}).then(<span class="func"><i>function</i></span>(password) {
+}).then(<span class="func"><i>function</i></span> (password) {
   <span class="tag">if</span> (password) {
     swal({
       type: <span class="str">'success'</span>,
@@ -788,7 +801,7 @@ swal({
 swal({
   input: <span class="str">'textarea'</span>,
   showCancelButton: <span class="val">true</span>
-}).then(<span class="func"><i>function</i></span>(text) {
+}).then(<span class="func"><i>function</i></span> (text) {
   <span class="tag">if</span> (text) {
     swal(text)
   }
@@ -811,8 +824,8 @@ swal({
   },
   inputPlaceholder: <span class="str">'Select country'</span>,
   showCancelButton: <span class="val">true</span>,
-  inputValidator: <span class="func"><i>function</i></span>(value) {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve, reject) {
+  inputValidator: <span class="func"><i>function</i></span> (value) {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve, reject) {
       <span class="tag">if</span> (value === <span class="str">'UKR'</span>) {
         resolve()
       } <span class="tag">else</span> {
@@ -820,7 +833,7 @@ swal({
       }
     })
   }
-}).then(<span class="func"><i>function</i></span>(result) {
+}).then(<span class="func"><i>function</i></span> (result) {
   swal({
     type: <span class="str">'success'</span>,
     html: <span class="str">'You selected: '</span> + result
@@ -836,8 +849,8 @@ swal({
       <td>
         <pre>
 <span class="comment">// inputOptions can be an object or Promise</span>
-<span class="func">var</span> inputOptions = <span class="tag">new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve) {
-  setTimeout(<span class="func"><i>function</i></span>() {
+<span class="func">var</span> inputOptions = <span class="tag">new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve) {
+  setTimeout(<span class="func"><i>function</i></span> () {
     resolve({
       <span class="str">'#ff0000'</span>: <span class="str">'Red'</span>,
       <span class="str">'#00ff00'</span>: <span class="str">'Green'</span>,
@@ -850,8 +863,8 @@ swal({
   title: <span class="str">'Select color'</span>,
   input: <span class="str">'radio'</span>,
   inputOptions: inputOptions,
-  inputValidator: <span class="func"><i>function</i></span>(result) {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve, reject) {
+  inputValidator: <span class="func"><i>function</i></span> (result) {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve, reject) {
       <span class="tag">if</span> (result) {
         resolve()
       } <span class="tag">else</span> {
@@ -859,7 +872,7 @@ swal({
       }
     })
   }
-}).then(<span class="func"><i>function</i></span>(result) {
+}).then(<span class="func"><i>function</i></span> (result) {
   swal({
     type: <span class="str">'success'</span>,
     html: <span class="str">'You selected: '</span> + result
@@ -881,8 +894,8 @@ swal({
     <span class="str">'I agree with the terms and conditions'</span>,
   confirmButtonText:
     <span class="str">'Continue &lt;i class="fa fa-arrow-right&gt;&lt;/i&gt;'</span>,
-  inputValidator: <span class="func"><i>function</i></span>(result) {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve, reject) {
+  inputValidator: <span class="func"><i>function</i></span> (result) {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve, reject) {
       <span class="tag">if</span> (result) {
         resolve()
       } <span class="tag">else</span> {
@@ -890,7 +903,7 @@ swal({
       }
     })
   }
-}).then(<span class="func"><i>function</i></span>(result) {
+}).then(<span class="func"><i>function</i></span> (result) {
   swal({
     type: <span class="str">'success'</span>,
     text: <span class="str">'You agreed with T&amp;C :)'</span>
@@ -911,9 +924,9 @@ swal({
   inputAttributes: {
     accept: <span class="str">'image/*'</span>
   }
-}).then(<span class="func"><i>function</i></span>(file) {
+}).then(<span class="func"><i>function</i></span> (file) {
   <span class="func">var</span> reader = <span class="tag">new</span> <span class="func">FileReader</span>
-  reader.onload = <span class="func"><i>function</i></span>(e) {
+  reader.onload = <span class="func"><i>function</i></span> (e) {
     swal({
       imageUrl: e.target.result
     })
@@ -959,19 +972,17 @@ swal({
   html:
     <span class="str">'&lt;input id="swal-input1" class="swal2-input" autofocus&gt;'</span> +
     <span class="str">'&lt;input id="swal-input2" class="swal2-input"&gt;'</span>,
-  preConfirm: <span class="func"><i>function</i></span>() {
-    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span>(resolve) {
-      <span class="tag">if</span> (result) {
-        resolve([
-          $(<span class="str">'#swal-input1'</span>).val(),
-          $(<span class="str">'#swal-input2'</span>).val()
-        ])
-      }
+  preConfirm: <span class="func"><i>function</i></span> () {
+    <span class="tag">return new</span> <span class="func">Promise</span>(<span class="func"><i>function</i></span> (resolve) {
+      resolve([
+        $(<span class="str">'#swal-input1'</span>).val(),
+        $(<span class="str">'#swal-input2'</span>).val()
+      ])
     })
   }
-}).then(<span class="func"><i>function</i></span>(result) {
+}).then(<span class="func"><i>function</i></span> (result) {
   swal(JSON.stringify(result))
-})</pre>
+}).catch(swal.noop)</pre>
 
         </td>
         <td><button class="input-type-multiple">Try me!</button></td>
@@ -1122,7 +1133,15 @@ swal({
       title: 'Auto close alert!',
       text: 'I will close in 2 seconds.',
       timer: 2000
-    }).catch(swal.noop)
+    }).then(
+      function () {},
+      // handling the promise rejection
+      function (dismiss) {
+        if (dismiss === 'timer') {
+          console.log('I was closed by the timer')
+        }
+      }
+    )
   })
 
   $('.examples .html button').on('click', function () {
@@ -1307,7 +1326,7 @@ swal({
   })
 
   $('.input-type-radio').on('click', function () {
-    var inputOptions = new Promise(function (resolve) {
+    var inputOptionsPromise = new Promise(function (resolve) {
       setTimeout(function () {
         resolve({
           '#FF0000': 'Red',
@@ -1320,7 +1339,7 @@ swal({
     swal({
       title: 'Select color',
       input: 'radio',
-      inputOptions: inputOptions,
+      inputOptions: inputOptionsPromise,
       inputValidator: function (value) {
         return new Promise(function (resolve, reject) {
           if (value) {

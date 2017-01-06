@@ -82,6 +82,5 @@ class MyUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('last_login',)
 
-
 admin.site.register(User, MyUserAdmin)
 admin.site.unregister(Group)

@@ -7,7 +7,8 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
-SECRET_KEY = open(SECRET_FILE).read().strip()
+# SECRET_KEY = open(SECRET_FILE).read().strip()
+SECRET_KEY = "(al%sob(xmg!0g$-o8%wb3h-+g=(n0uawpg$o1fyrbud5n+brh"
 
 # Database
 DATABASES = {
@@ -65,9 +66,9 @@ vars().update(EMAIL_CONFIG)
 
 ADMIN_URL = env('ADMIN_URL')
 
-# SESSION_COOKIE_SECURE = False
-# SESSION_COOKIE_HTTPONLY = False
-# CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SECURE = False
 
 LOGGING['loggers'].update({
     '{{ project_name|lower }}': {

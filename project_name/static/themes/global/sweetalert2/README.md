@@ -1,4 +1,4 @@
-SweetAlert2 [![Build Status](https://travis-ci.org/limonte/sweetalert2.svg?branch=master)](https://travis-ci.org/limonte/sweetalert2) [![Downloads](https://img.shields.io/npm/dt/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Version](https://img.shields.io/npm/v/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+SweetAlert2 [![Build Status](https://travis-ci.org/limonte/sweetalert2.svg?branch=master)](https://travis-ci.org/limonte/sweetalert2) [![Downloads](https://img.shields.io/npm/dt/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Version](https://img.shields.io/npm/v/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sweetalert2/Lobby)
 -----------
 
 An awesome replacement for JavaScript's popup boxes.
@@ -6,15 +6,14 @@ An awesome replacement for JavaScript's popup boxes.
 What's the difference between SweetAlert and SweetAlert2?
 ---------------------------------------------------------
 
-Reason of creating this fork is inactivity of original SweetAlert plugin:
-[http://stackoverflow.com/a/27842854/1331425](http://stackoverflow.com/a/27842854/1331425)
-[SweetAlert to SweetAlert2 migration guide](https://github.com/limonte/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2)
+ - [Reason of creating this fork is inactivity of original SweetAlert plugin](http://stackoverflow.com/a/27842854/1331425)
+ - [SweetAlert to SweetAlert2 migration guide](https://github.com/limonte/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2)
 
 ---
 
 [See SweetAlert2 in action!](https://limonte.github.io/sweetalert2/)
 
-<img src="https://raw.github.com/limonte/sweetalert2/master/sweetalert2.gif" width="686">
+<img src="https://raw.github.com/limonte/sweetalert2/master/assets/sweetalert2.gif" width="686">
 
 
 Usage
@@ -40,7 +39,7 @@ To use:
 
 
 ```html
-<script src="bower_components/es6-promise/es6-promise.min.js"></script> <!-- for IE support -->
+<script src="bower_components/es6-promise/es6-promise.auto.min.js"></script> <!-- for IE support -->
 
 <script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" type="text/css" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
@@ -128,7 +127,7 @@ Modal Types
 
 | `success`                                                                       | `error`                                                                       | `warning`                                                                       | `info`                                                                       | `question`                                                                       |
 | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| ![](https://raw.github.com/limonte/sweetalert2/master/docs/swal2-success.png) | ![](https://raw.github.com/limonte/sweetalert2/master/docs/swal2-error.png) | ![](https://raw.github.com/limonte/sweetalert2/master/docs/swal2-warning.png) | ![](https://raw.github.com/limonte/sweetalert2/master/docs/swal2-info.png) | ![](https://raw.github.com/limonte/sweetalert2/master/docs/swal2-question.png) |
+| ![](https://raw.github.com/limonte/sweetalert2/master/assets/swal2-success.png) | ![](https://raw.github.com/limonte/sweetalert2/master/assets/swal2-error.png) | ![](https://raw.github.com/limonte/sweetalert2/master/assets/swal2-warning.png) | ![](https://raw.github.com/limonte/sweetalert2/master/assets/swal2-info.png) | ![](https://raw.github.com/limonte/sweetalert2/master/assets/swal2-question.png) |
 
 
 Configuration
@@ -136,8 +135,9 @@ Configuration
 
 | Argument                | Default value        | Description |
 | ----------------------- | -------------------- | ----------- |
-| `title`                 | `null`               | The title of the modal. It can either be added to the object under the key "title" or passed as the first parameter of the function. |
-| `text`                  | `null`               | A description for the modal. It can either be added to the object under the key "text" or passed as the second parameter of the function. |
+| `title`                 | `null`               | The title of the modal, as HTML. It can either be added to the object under the key "title" or passed as the first parameter of the function. |
+| `titleText`             | `null`               | The title of the modal, as text. Useful to avoid HTML injection. |
+| `text`                  | `null`               | A description for the modal. It can either be added to the object under the key "text" or passed as the second parameter of the function. |
 | `html`                  | `null`               | A HTML description for the modal. If `text` and `html` parameters are provided in the same time, "text" will be used. |
 | `type `                 | `null`               | The type of the modal. SweetAlert2 comes with [5 built-in types](#modal-types) which will show a corresponding icon animation: `warning`, `error`, `success`, `info` and `question`. It can either be put in the array under the key `type` or passed as the third parameter of the function. |
 | `input`                 | `null`               | Input field type, can be `'text'`, `'email'`, `'password'`, `'number'`, `'tel'`, `'range'`, `'textarea'`, `'select'`, `'radio'`, `'checkbox'` and `'file'`. |
@@ -148,7 +148,7 @@ Configuration
 | `timer`                 | `null`               | Auto close timer of the modal. Set in ms (milliseconds). |
 | `animation`             | `true`               | If set to `false`, modal CSS animation will be disabled. |
 | `allowOutsideClick`     | `true`               | If set to `false`, the user can't dismiss the modal by clicking outside it. |
-| `allowEscapeKey`        | `true`               | If set to `false`, the user can't dismiss the modal by pressing the Escape key. |
+| `allowEscapeKey`        | `true`               | If set to `false`, the user can't dismiss the modal by pressing the <kbd>Esc</kbd> key. |
 | `showConfirmButton`     | `true`               | If set to `false`, a "Confirm"-button will not be shown. It can be useful when you're using `html` parameter for custom HTML description. |
 | `showCancelButton`      | `false`              | If set to `true`, a "Cancel"-button will be shown, which the user can click on to dismiss the modal. |
 | `confirmButtonText`     | `'OK'`               | Use this to change the text on the "Confirm"-button. |
@@ -157,16 +157,16 @@ Configuration
 | `cancelButtonColor`     | `'#aaa'`             | Use this to change the background color of the "Cancel"-button (must be a HEX value). |
 | `confirmButtonClass`    | `null`               | A custom CSS class for the "Confirm"-button. |
 | `cancelButtonClass`     | `null`               | A custom CSS class for the "Cancel"-button. |
-| `buttonsStyling`        | `true`               | Apply default swal2 styling to buttons. If you want to use your own classes (e.g. Bootstrap classes) set this parameter to `false`. |
+| `buttonsStyling`        | `true`               | Apply default styling to buttons. If you want to use your own classes (e.g. Bootstrap classes) set this parameter to `false`. |
 | `reverseButtons`        | `false`              | Set to `true` if you want to invert default buttons positions. |
 | `focusCancel`           | `false`              | Set to `true` if you want to focus the "Cancel"-button by default. |
 | `showCloseButton`       | `false`              | Set to `true` to show close button in top right corner of the modal. |
 | `showLoaderOnConfirm`   | `false`              | Set to `true` to disable buttons and show that something is loading. Useful for AJAX requests. |
 | `preConfirm`            | `null`               | Function to execute before confirm, should return Promise, see <a href="https://limonte.github.io/sweetalert2/#ajax-request">usage example</a>. |
-| `imageUrl`              | `null`               | Add a customized icon for the modal. Should contain a string with the path or URL to the image. |
+| `imageUrl`              | `null`               | Add an image for the modal. Should contain a string with the path or URL to the image. |
 | `imageWidth`            | `null`               | If imageUrl is set, you can specify imageWidth to describes image width in px. |
 | `imageHeight`           | `null`               | Custom image height in px. |
-| `imageClass`            | `null`               | A custom CSS class for the customized icon. |
+| `imageClass`            | `null`               | A custom CSS class for the image. |
 | `inputPlaceholder`      | `''`                 | Input field placeholder. |
 | `inputValue`            | `''`                 | Input field initial value. |
 | `inputOptions`          | `{}` or `Promise`    | If `input` parameter is set to `'select'` or `'radio'`, you can provide options. Object keys will represent options values, object values will represent options text values. |
@@ -218,14 +218,14 @@ Browser compatibility
 
 SweetAlert2 works in most major browsers (yes, even IE). Some details:
 
-- **IE: 10+**, Promise polyfill should be included (see [usage example](#usage)).
+- **IE: 11**, Promise polyfill should be included (see [usage example](#usage)).
 - **Microsoft Edge: 12+**
 - **Safari: 4+**
 - **Firefox: 4+**
 - **Chrome 14+**
 - **Opera: 15+**
 
-Note that SweetAlert2 **does not** and **will not** provide support or functionality of any kind on IE9 and lower.
+Note that SweetAlert2 **does not** and **will not** provide support or functionality of any kind on IE10 and lower.
 
 
 Contributing
@@ -235,10 +235,12 @@ If you would like to contribute enhancements or fixes, please do the following:
 
 1. Fork the plugin repository.
 
-2. Make sure you have [Node](http://nodejs.org/) and [NPM](https://www.npmjs.com/) installed.
+2. Make sure you have [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/) installed.
 
-3. When in the SweetAlert2 directory, run the command ``npm install`` to install npm packages.
+3. When in the SweetAlert2 directory, run `npm install` or `yarn install` to install dependencies.
 
-4. Start gulp watcher ``gulp watch`` to automatically build and minify the SCSS and JS-files.
+4. Start gulp watcher `gulp watch` to automatically build and minify the SCSS and JS-files.
 
-5. Make sure that `dist/*` files aren't committed and create a pull request.
+5. Check that your code is compliant with code linters: `gulp lint`.
+
+6. Make sure that `dist/*` files aren't committed and create a pull request.

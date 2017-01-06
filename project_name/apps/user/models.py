@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import (
-    AbstractBaseUser, Permission, Group
-)
+    AbstractBaseUser, Permission, Group,
+    AbstractUser)
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.db import models
@@ -90,6 +90,9 @@ class CustomUser(AbstractBaseUser):
         profile = UserProfile.objects.select_related('user').get(pk=self)
         return profile
 
+    def get_teams(self):
+        return self.team.filter(is_deleted=False)
+
     @property
     def is_staff(self):
         return self.is_admin
@@ -166,4 +169,3 @@ class UserProfile(BaseModel2):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-

@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'project_name.apps.core.apps.CoreConfig',
+    'project_name.apps.module.apps.ModuleConfig',
     'project_name.apps.user.apps.UserConfig',
 )
 
@@ -142,7 +143,6 @@ STATIC_ROOT = str(PROJECT_ROOT.path('run/static'))
 MEDIA_ROOT = str(PROJECT_ROOT.path('run/media'))
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
