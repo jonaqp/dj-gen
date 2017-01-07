@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% load cache %}
+{% load inclusion %}
 
 {% get_current_language as LANGUAGE_CODE %}
 <!--[if IE 8]> <html lang="{{LANGUAGE_CODE}}" class="ie8 no-js"> <![endif]-->
@@ -49,7 +50,7 @@
                     <div class="sidebar sidebar-main">
                         <div class="sidebar-content">
                             {% include 'themes/partials/siderbar-user.html' %}
-                            {% include 'themes/partials/siderbar-menu.html' %}
+                            {% tag_menu_siderbar %}
                         </div>
                     </div>
                 {% endblock page-content-siderbar %}

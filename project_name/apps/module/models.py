@@ -56,7 +56,6 @@ class ModuleTeam(BaseModel):
         module_item = ModuleItemTeam.objects.filter(module_team=self)
         return ", ".join([p.moduleitem.name for p in module_item])
 
-
     def __str__(self):
         return "{0}".format(self.module)
 

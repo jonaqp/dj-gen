@@ -8,11 +8,17 @@ from .models import (
 
 class ModuleItemAdminInline(admin.TabularInline):
     model = ModuleItem
+    extra = 0
 
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
     inlines = [ModuleItemAdminInline]
+
+
+@admin.register(ModuleItem)
+class ModuleItemAdmin(admin.ModelAdmin):
+    pass
 
 
 class ModuleItemTeamAdminInline(admin.TabularInline):
@@ -22,7 +28,6 @@ class ModuleItemTeamAdminInline(admin.TabularInline):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         field = super().formfield_for_foreignkey(db_field, request, **kwargs)
-        print(db_field.name)
         if db_field.name == "moduleitem":
             if request._obj is not None:
                 pass
