@@ -77,8 +77,6 @@ target/
 # celery beat schedule file
 celerybeat-schedule
 
-# dotenv
-.env
 
 # virtualenv
 venv/
@@ -94,4 +92,3 @@ ENV/
 
 /node_modules/
 /project_name/run/static/
-/project_name/static/themes/global/
