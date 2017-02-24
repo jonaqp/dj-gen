@@ -11,10 +11,10 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
     ('django.template.loaders.cached.Loader', RAW_TEMPLATE_LOADERS),
 ]
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = SECRET_FILE
 
 DATABASES = {
-    'default': env.db("SQLITE_URL_LOCAL"),
+    'default': env.db("SQLITE_URL"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES['default']['CONN_MAX_AGE'] = 10
@@ -33,7 +33,7 @@ LOCAL_APPS = (
 
 INSTALLED_APPS += DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-ADMIN_URL = env('ADMIN_URL_PROD')
+ADMIN_URL = env('ADMIN_URL')
 
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND')
 EMAIL_CONFIG = env.email_url('EMAIL_URL_PROD')

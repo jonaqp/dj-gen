@@ -1,11 +1,5 @@
 {
   "name": "jonap_generator",
-  "scripts": {
-    "postinstall": "bower install"
-  },
-  "dependencies": {
-    "bower": "latest"
-  },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-loader": "^6.2.10",

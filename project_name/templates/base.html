@@ -1,24 +1,97 @@
-{% extends 'wrapper.html' %}
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% load cache %}
+{% load inclusion %}
 
-{% block class_body %}
-    {{ block.super }}
-{% endblock class_body %}
+{% get_current_language as LANGUAGE_CODE %}
+<!--[if IE 8]> <html lang="{{LANGUAGE_CODE}}" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="{{LANGUAGE_CODE}}" class="ie9 no-js"> <![endif]-->
 
-{% block header %}
-    {{ block.super }}
-{% endblock header %}
+<html lang="{{ LANGUAGE_CODE }}">
 
-{% block content %}
-    {{ block.super }}
-{% endblock content %}
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-{% block footer %}
-    {{ block.super }}
-{% endblock footer %}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>American Rent a Car - Erp Web Application</title>
 
-{% block js_plugins_after %}
-{% endblock js_plugins_after %}
+    <link href="{% static "themes/font/css1381.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "themes/font/icomoon/styles.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "themes/font/fontawesome/styles.min.css"%}" rel="stylesheet" type="text/css">
 
-{% block js_plugins_before %}
-{% endblock js_plugins_before %}
+    <link href="{% static "themes/css/bootstrap.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "themes/css/core.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "themes/css/components.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "themes/css/colors.css" %}" rel="stylesheet" type="text/css">
 
+	<script src="{% static "themes/global/loaders/pace.min.js" %}"></script>
+    <script src="{% static "themes/global/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "themes/global/bootstrap/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "themes/global/loaders/blockui.min.js" %}"></script>
+    <script src="{% static "themes/global/notifications/sweet_alert.min.js" %}"></script>
+
+
+</head>
+
+<body class="{% block class_body %}navbar-bottom{% endblock class_body %}">
+
+    {% block header %}
+        {% include 'themes/partials/header.html' %}
+    {% endblock header %}
+
+    <div class="page-container">
+        <div class="page-content">
+            {% block content %}
+                {% block page-content-siderbar %}
+                    <div class="sidebar sidebar-main">
+                        <div class="sidebar-content">
+                            {% include 'themes/partials/siderbar-user.html' %}
+                            {% tag_menu_siderbar %}
+                        </div>
+                    </div>
+                {% endblock page-content-siderbar %}
+
+                {% block page-content-wrapper %}
+                    <div class="content-wrapper">
+                        {% block sidebar_page_header %}
+                            <div class="page-header page-header-default">
+                                {% include 'themes/partials/page-header.html' %}
+                                {% include 'themes/partials/page-breadcrumb.html' %}
+                            </div>
+                        {% endblock sidebar_page_header %}
+
+                        {% block sidebar_page_content %}
+                            <div class="content">
+                                {% include 'themes/partials/page-content.html' %}
+                            </div>
+                        {% endblock sidebar_page_content %}
+                    </div>
+                {% endblock page-content-wrapper %}
+            {% endblock content %}
+        </div>
+    </div>
+
+
+    {% block footer %}
+	    {% include 'themes/partials/footer.html' %}
+    {% endblock footer %}
+
+    <script type="text/javascript" src="{% static "themes/global/forms/styling/uniform.min.js" %}"></script>
+    <script src="{% static "themes/js/crsftoken.js" %}"></script>
+    {% block js_plugins_after %}
+    {% endblock js_plugins_after %}
+    <script src="{% static 'themes/global/media/fancybox.min.js' %}"></script>
+    <script src="{% static 'themes/js/jquery.formset.js' %}"></script>
+    <script src="{% static 'themes/js/formserializer.js' %}"></script>
+    <script src="{% static "themes/js/app.js" %}"></script>
+
+
+    {% block js_plugins_before %}
+    {% endblock js_plugins_before %}
+
+</body>
+
+</html>
