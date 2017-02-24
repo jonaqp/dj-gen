@@ -5,7 +5,7 @@ environ.Env.read_env(str(env_file))
 
 DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '*']
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 SECRET_KEY = SECRET_FILE
