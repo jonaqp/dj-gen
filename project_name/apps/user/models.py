@@ -16,7 +16,7 @@ from project_name.apps.core.manager import UserManager
 from project_name.apps.core.models import Role, Team
 from project_name.apps.core.utils.fields import BaseModel2
 from project_name.apps.core.utils.upload_folder import upload_user_profile
-from project_name.apps.module.models import ModuleTeam, ModuleItemTeam
+from project_name.apps.module.models import RoleModule, RoleModuleItem
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 

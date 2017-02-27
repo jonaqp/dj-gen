@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 from .models import (
-    Module, ModuleItem, ModuleTeam, ModuleItemTeam
+    Module, ModuleItem, RoleModule, RoleModuleItem
 )
 
 
@@ -18,7 +18,7 @@ class ModuleAdmin(admin.ModelAdmin):
 
 class ModuleItemTeamAdminInline(admin.TabularInline):
     list_display = ['module_team', 'moduleitem']
-    model = ModuleItemTeam
+    model = RoleModuleItem
     extra = 0
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -32,9 +32,9 @@ class ModuleItemTeamAdminInline(admin.TabularInline):
         return field
 
 
-@admin.register(ModuleTeam)
+@admin.register(RoleModule)
 class ModuleTeamAdmin(admin.ModelAdmin):
-    list_display = ['module', 'get_team_list', 'get_moduleitem_list']
+    list_display = ['module', 'role', 'get_moduleitem_list']
     inlines = [ModuleItemTeamAdminInline]
 
     def get_form(self, request, obj=None, **kwargs):

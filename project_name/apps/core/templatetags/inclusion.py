@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import Count
 
-from project_name.apps.module.models import ModuleTeam, ModuleItemTeam
+from project_name.apps.module.models import RoleModule, RoleModuleItem
 from project_name.apps.user.models import User
 
 register = template.Library()
@@ -12,12 +12,12 @@ def tag_menu_siderbar(context):
     """for order need change line 22, 29, 34"""
     request = context['request']
     user = User.objects.get(email=request.user)
-    module_team = ModuleTeam.current.filter(
-        team__in=user.team.all()
+    module_team = RoleModule.current.filter(
+        role__in=user.team.all()
     ).values('module').annotate(dcount=Count('module'))
     result = dict()
     for x in module_team.iterator():
-        m_team = ModuleTeam.current.get(module=x["module"])
+        m_team = RoleModule.current.get(module=x["module"])
         if m_team.module.name not in result.keys():
             result[m_team.module.name] = list()
         add_module_dict = dict(
@@ -27,7 +27,7 @@ def tag_menu_siderbar(context):
             )
         )
         result[m_team.module.name].append(add_module_dict)
-        m_itemteam = ModuleItemTeam.current.filter(
+        m_itemteam = RoleModuleItem.current.filter(
             module_team=m_team)
         if m_itemteam.exists():
             for y in m_itemteam:

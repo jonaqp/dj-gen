@@ -34,7 +34,7 @@ class Role(BaseModel2):
         verbose_name_plural = _('roles')
 
     def __str__(self):
-        return "{0}:{1}".format(str(self.team.name), str(self.name))
+        return "{0}:{1}".format(str(self.team.name), str(self.codename))
 
     def natural_key(self):
         return (self.name,)
