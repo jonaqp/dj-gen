@@ -16,11 +16,6 @@ class ModuleAdmin(admin.ModelAdmin):
     inlines = [ModuleItemAdminInline]
 
 
-@admin.register(ModuleItem)
-class ModuleItemAdmin(admin.ModelAdmin):
-    pass
-
-
 class ModuleItemTeamAdminInline(admin.TabularInline):
     list_display = ['module_team', 'moduleitem']
     model = ModuleItemTeam
