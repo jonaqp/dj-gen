@@ -1,6 +1,6 @@
 from django.db import models
 
-from project_name.apps.core.models import Team
+from project_name.apps.core.models import Team, Permission
 from project_name.apps.core.utils.fields import BaseModel
 
 
@@ -42,7 +42,8 @@ class ModuleItem(BaseModel):
 
 
 class ModuleTeam(BaseModel):
-    module = models.ForeignKey(Module)
+    module = models.ForeignKey(Module, on_delete=models.SET_NULL,
+                               blank=True, null=True)
     team = models.ManyToManyField(Team)
 
     class Meta:
@@ -63,6 +64,8 @@ class ModuleTeam(BaseModel):
 class ModuleItemTeam(BaseModel):
     module_team = models.ForeignKey(ModuleTeam)
     moduleitem = models.ForeignKey(ModuleItem)
+    permission = models.ForeignKey(Permission, on_delete=models.SET_NULL,
+                                   blank=True, null=True)
 
     class Meta:
         unique_together = ['module_team', 'moduleitem']
