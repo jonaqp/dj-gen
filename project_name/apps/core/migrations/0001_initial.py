@@ -32,9 +32,6 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'roles',
                 'verbose_name': 'role',
             },
-            managers=[
-                ('objects', project_name.apps.core.manager.RoleManager()),
-            ],
         ),
         migrations.CreateModel(
             name='Team',

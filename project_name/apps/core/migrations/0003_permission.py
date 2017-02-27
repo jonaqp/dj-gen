@@ -35,8 +35,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'permissions',
                 'verbose_name': 'permission',
             },
-            managers=[
-                ('objects', project_name.apps.core.manager.RoleManager()),
-            ],
         ),
     ]

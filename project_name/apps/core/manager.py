@@ -11,13 +11,6 @@ class TeamManager(models.Manager):
         return self.get(name=name)
 
 
-class RoleManager(models.Manager):
-    use_in_migrations = True
-
-    def get_by_natural_key(self, codename, app_label, model):
-        return self.get(codename=codename, )
-
-
 class PermissionManager(models.Manager):
     use_in_migrations = True
 

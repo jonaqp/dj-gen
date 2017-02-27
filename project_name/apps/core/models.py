@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from .manager import TeamManager, RoleManager, PermissionManager
+from .manager import TeamManager, PermissionManager
 from .utils.fields import BaseModel2
 
 
@@ -27,15 +27,13 @@ class Role(BaseModel2):
     name = models.CharField(_('name'), max_length=80, unique=True)
     codename = models.CharField(_('codename'), max_length=80, unique=True)
 
-    objects = RoleManager()
-
     class Meta:
         unique_together = ('team', 'codename')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
 
     def __str__(self):
-        return self.name
+        return "{0}:{1}".format(str(self.team.name), str(self.name))
 
     def natural_key(self):
         return (self.name,)
@@ -45,7 +43,7 @@ class Permission(BaseModel2):
     name = models.CharField(_('name'), max_length=80, unique=True)
     codename = models.CharField(_('codename'), max_length=80, unique=True)
 
-    objects = RoleManager()
+    objects = PermissionManager()
 
     class Meta:
         verbose_name = _('permission')
