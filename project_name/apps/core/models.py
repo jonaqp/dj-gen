@@ -12,8 +12,8 @@ class Team(BaseModel2):
 
     class Meta:
         unique_together = ('name',)
-        verbose_name = _('group')
-        verbose_name_plural = _('groups')
+        verbose_name = _('Group')
+        verbose_name_plural = _('Groups')
 
     def __str__(self):
         return self.name
@@ -30,14 +30,29 @@ class Role(BaseModel2):
 
     class Meta:
         unique_together = ('team', 'name', 'codename',)
-        verbose_name = _('role')
-        verbose_name_plural = _('roles')
+        verbose_name = _('Role')
+        verbose_name_plural = _('Roles')
 
     def __str__(self):
         return "{0}:{1}".format(str(self.team.name), str(self.codename))
 
     def natural_key(self):
         return (self.name,)
+
+
+class RoleTeam(BaseModel2):
+    role = models.ForeignKey(Role, on_delete=models.SET_NULL,
+                             blank=True, null=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL,
+                             blank=True, null=True)
+
+    class Meta:
+        unique_together = ('role', 'team',)
+        verbose_name = _('Role Group', )
+        verbose_name_plural = _('Role Groups', )
+
+    def __str__(self):
+        return "{0}:{1}".format(str(self.team.name), str(self.role.codename))
 
 
 class Permission(BaseModel2):
