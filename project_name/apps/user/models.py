@@ -16,7 +16,7 @@ from project_name.apps.core.manager import UserManager
 from project_name.apps.core.models import Role, Team
 from project_name.apps.core.utils.fields import BaseModel2
 from project_name.apps.core.utils.upload_folder import upload_user_profile
-from project_name.apps.module.models import ModuleTeam, ModuleItemTeam
+from project_name.apps.module.models import ModuleRole, ModuleItemRole
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -37,10 +37,6 @@ class CustomUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     team = models.ManyToManyField(
         Team, verbose_name=_('teams'), blank=True,
-        related_name="user_set", related_query_name="user",
-    )
-    user_roles = models.ManyToManyField(
-        Role, verbose_name=_('user roles'), blank=True,
         related_name="user_set", related_query_name="user",
     )
 
