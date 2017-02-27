@@ -25,10 +25,10 @@ class ModuleItem(BaseModel):
     name = models.CharField(max_length=200, null=True, blank=True)
     match = models.CharField(
         default="#", max_length=200, null=False, blank=False)
-    module = models.ForeignKey(Module)
     reference = models.CharField(
         unique=True, max_length=100, null=False, blank=False)
     order = models.IntegerField(null=False, blank=False, default=0)
+    module = models.ForeignKey(Module)
 
     def module_text(self):
         return "{0}".format(self.module)
@@ -42,9 +42,9 @@ class ModuleItem(BaseModel):
 
 
 class ModuleTeam(BaseModel):
+    team = models.ManyToManyField(Team)
     module = models.ForeignKey(Module, on_delete=models.SET_NULL,
                                blank=True, null=True)
-    team = models.ManyToManyField(Team)
 
     class Meta:
         unique_together = ['module']
@@ -64,8 +64,7 @@ class ModuleTeam(BaseModel):
 class ModuleItemTeam(BaseModel):
     module_team = models.ForeignKey(ModuleTeam)
     moduleitem = models.ForeignKey(ModuleItem)
-    permission = models.ForeignKey(Permission, on_delete=models.SET_NULL,
-                                   blank=True, null=True)
+    permission = models.ManyToManyField(Permission, blank=True)
 
     class Meta:
         unique_together = ['module_team', 'moduleitem']

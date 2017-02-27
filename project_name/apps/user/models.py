@@ -39,10 +39,6 @@ class CustomUser(AbstractBaseUser):
         Team, verbose_name=_('teams'), blank=True,
         related_name="user_set", related_query_name="user",
     )
-    user_roles = models.ManyToManyField(
-        Role, verbose_name=_('user roles'), blank=True,
-        related_name="user_set", related_query_name="user",
-    )
 
     objects = UserManager()
 

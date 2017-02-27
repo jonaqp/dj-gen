@@ -22,12 +22,15 @@ class Team(BaseModel2):
 
 
 class Role(BaseModel2):
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL,
+                             blank=True, null=True)
     name = models.CharField(_('name'), max_length=80, unique=True)
     codename = models.CharField(_('codename'), max_length=80, unique=True)
 
     objects = RoleManager()
 
     class Meta:
+        unique_together = ('team', 'codename')
         verbose_name = _('role')
         verbose_name_plural = _('roles')
 

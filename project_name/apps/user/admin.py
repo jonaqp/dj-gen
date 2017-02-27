@@ -74,11 +74,11 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password', 'is_admin')}),
         (_('Permissions'), {'fields': ('is_active', 'is_admin',
-                                       'team', 'user_roles')}),
+                                       'team')}),
         (_('Important dates'), {'fields': ('last_login',)}),
 
     )
-    filter_horizontal = ('team', 'user_roles',)
+    filter_horizontal = ('team',)
     search_fields = ('email',)
     ordering = ('last_login',)
 
