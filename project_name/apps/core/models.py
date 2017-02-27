@@ -40,21 +40,6 @@ class Role(BaseModel2):
         return (self.name,)
 
 
-class RoleTeam(BaseModel2):
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL,
-                             blank=True, null=True)
-    team = models.ForeignKey(Team, on_delete=models.SET_NULL,
-                             blank=True, null=True)
-
-    class Meta:
-        unique_together = ('role', 'team',)
-        verbose_name = _('Role Group', )
-        verbose_name_plural = _('Role Groups', )
-
-    def __str__(self):
-        return "{0}:{1}".format(str(self.team.name), str(self.role.codename))
-
-
 class Permission(BaseModel2):
     name = models.CharField(_('name'), max_length=80, unique=True)
     codename = models.CharField(_('codename'), max_length=80, unique=True)
