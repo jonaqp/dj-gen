@@ -11,6 +11,7 @@ class Team(BaseModel2):
     objects = TeamManager()
 
     class Meta:
+        unique_together = ('name',)
         verbose_name = _('group')
         verbose_name_plural = _('groups')
 
@@ -28,7 +29,7 @@ class Role(BaseModel2):
     codename = models.CharField(_('codename'), max_length=80, unique=True)
 
     class Meta:
-        unique_together = ('team', 'codename')
+        unique_together = ('team', 'name', 'codename',)
         verbose_name = _('role')
         verbose_name_plural = _('roles')
 
@@ -46,6 +47,7 @@ class Permission(BaseModel2):
     objects = PermissionManager()
 
     class Meta:
+        unique_together = ('name',)
         verbose_name = _('permission')
         verbose_name_plural = _('permissions')
 
