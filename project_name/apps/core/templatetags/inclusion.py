@@ -13,7 +13,7 @@ def tag_menu_siderbar(context):
     request = context['request']
     user = User.objects.get(email=request.user)
     module_team = RoleModule.current.filter(
-        role__in=user.team.all()
+        role__team__in=user.team.all()
     ).values('module').annotate(dcount=Count('module'))
     result = dict()
     for x in module_team.iterator():
@@ -28,7 +28,7 @@ def tag_menu_siderbar(context):
         )
         result[m_team.module.name].append(add_module_dict)
         m_itemteam = RoleModuleItem.current.filter(
-            module_team=m_team)
+            role_module=m_team)
         if m_itemteam.exists():
             for y in m_itemteam:
                 dict_sub_menu = result[m_team.module.name][0]['module']['submodule']

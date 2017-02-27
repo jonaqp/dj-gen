@@ -51,9 +51,6 @@ class RoleModule(BaseModel):
         unique_together = ['module']
         verbose_name_plural = "3. Module Teams"
 
-    # def get_team_list(self):
-    #     return ", ".join([p.name for p in self.role.objects.all()])
-
     def get_moduleitem_list(self):
         module_item = RoleModuleItem.objects.filter(role_module=self)
         return ", ".join([p.moduleitem.name for p in module_item])
