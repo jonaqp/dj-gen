@@ -9,7 +9,8 @@ from project_name.apps.siporacle.query_oracle import (
     SQL_unidad_medida, SQL_almacen_description,
     SQL_tareas_proyectos,
     SQL_posibles_almacen, SQL_articulos_acero,
-    SQL_linea_articulo, SQL_clase_articulo, SQL_sub_clase_articulo
+    SQL_linea_articulo, SQL_clase_articulo, SQL_sub_clase_articulo,
+    SQL_pedido_movimiento
 )
 
 # Network drive somewhere
@@ -37,6 +38,8 @@ from project_name.apps.siporacle.query_oracle import (
 output_linea_articulo = csv.writer(open("./csv/linea_articulo.csv", "w"), dialect='excel')
 output_clase_articulo = csv.writer(open("./csv/clase_articulo .csv", "w"), dialect='excel')
 output_sub_clase_articulo = csv.writer(open("./csv/sub_clase_articulo.csv", "w"), dialect='excel')
+
+output_sql_pedido_movimiento = csv.writer(open("./csv/pedido_movimiento.csv", "w"), dialect='excel')
 
 connection = cx_Oracle.connect('apps/TMappsEBS@10.253.219.202:1523/QAS')
 cursor = connection.cursor()
@@ -128,22 +131,30 @@ cursor = connection.cursor()
 #     output_articulos_acero.writerow(row)
 
 #
-""" linea_articulo """
-cursor.execute(SQL_linea_articulo)
+# """ linea_articulo """
+# cursor.execute(SQL_linea_articulo)
+# for row in cursor:
+#     output_linea_articulo.writerow(row)
+#
+#
+# """ clase_articulo """
+# cursor.execute(SQL_clase_articulo)
+# for row in cursor:
+#     output_clase_articulo.writerow(row)
+#
+#
+# """ sub_clase_articulo """
+# cursor.execute(SQL_sub_clase_articulo)
+# for row in cursor:
+#     output_sub_clase_articulo.writerow(row)
+
+
+
+""" SQL_pedido_movimiento """
+cursor.execute(SQL_pedido_movimiento)
 for row in cursor:
-    output_linea_articulo.writerow(row)
+    output_sql_pedido_movimiento.writerow(row)
 
-
-""" clase_articulo """
-cursor.execute(SQL_clase_articulo)
-for row in cursor:
-    output_clase_articulo.writerow(row)
-
-
-""" sub_clase_articulo """
-cursor.execute(SQL_sub_clase_articulo)
-for row in cursor:
-    output_sub_clase_articulo.writerow(row)
 
 
 cursor.close()

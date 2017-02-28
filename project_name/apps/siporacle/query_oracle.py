@@ -292,3 +292,8 @@ select  ffvv3.flex_value
           order by ffvv3.parent_flex_value_low,ffvv3.flex_value
 
 """
+
+
+SQL_pedido_movimiento = """
+
+"""
