@@ -63,7 +63,7 @@ order by  msib.organization_id,msib.segment1||'.'||msib.segment2||'.'||msib.segm
 """
 
 SQL_proveedores = """
-    select TIPO_DOCUMENTO,NUMERO_DOCUMENTO, TIPO_CUENTA, TIPO_MONEDA, NUMERO_CUENTA   from TM_DATOS_PROVEEDORES
+    select *  from TM_DATOS_PROVEEDORES
 """
 
 SQL_personas = """
@@ -161,7 +161,7 @@ SQL_almacen_description = """
     and    loc.inventory_organization_id = o.organization_id
 """
 
-SQL_projectos_activos = """
+SQL_projectos_activos2 = """
 select p.project_id
        ,p.segment1 numero_proyecto
        ,p.name nombre_proyecto
@@ -248,4 +248,47 @@ SQL_articulos_acero = """
    (select inventory_item_id from tm_vw_art_actualizado union
    select inventory_item_id from tm_vw_no_acero)
  order by it.inventory_item_id
+"""
+
+
+
+SQL_linea_articulo = """
+select  ffvv1.flex_value
+                ,ffvv1.description
+                ,ffvs1.flex_value_set_name
+           from  apps.fnd_flex_values_vl        ffvv1
+                ,applsys.fnd_flex_value_sets    ffvs1
+          where  1 = 1
+            and  ffvs1.flex_value_set_name  = 'TS_INV_TM_LINEA_ART'
+            and  ffvs1.flex_value_set_id    = ffvv1.flex_value_set_id
+          order by  ffvv1.flex_value
+"""
+
+
+
+SQL_clase_articulo = """
+select  ffvv2.flex_value
+                ,ffvv2.description
+                ,ffvs2.flex_value_set_name
+                ,ffvv2.parent_flex_value_low
+           from  apps.fnd_flex_values_vl        ffvv2
+                ,applsys.fnd_flex_value_sets    ffvs2
+          where  1 = 1
+            and  ffvs2.flex_value_set_name  = 'TS_INV_TM_CLASE_ART'
+            and  ffvs2.flex_value_set_id    = ffvv2.flex_value_set_id
+          order by ffvv2.parent_flex_value_low,ffvv2.flex_value
+"""
+
+SQL_sub_clase_articulo = """
+select  ffvv3.flex_value
+                ,ffvv3.description
+                ,ffvs3.flex_value_set_name
+                ,ffvv3.parent_flex_value_low
+           from  apps.fnd_flex_values_vl        ffvv3
+                ,applsys.fnd_flex_value_sets    ffvs3
+          where  1 = 1
+            and  ffvs3.flex_value_set_name  = 'TS_INV_TM_SUBCLASE_ART'
+            and  ffvs3.flex_value_set_id    = ffvv3.flex_value_set_id
+          order by ffvv3.parent_flex_value_low,ffvv3.flex_value
+
 """
