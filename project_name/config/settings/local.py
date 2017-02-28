@@ -13,7 +13,17 @@ SECRET_KEY = SECRET_FILE
 # Database
 DATABASES = {
     'default': env.db("SQLITE_URL"),
+    'sip_oracle': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': '(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.253.219.202)(PORT=1523))(CONNECT_DATA=(SERVER=dedicated)(SERVICE_NAME=QAS)))',
+        'USER': 'apps',
+        'PASSWORD': 'TMappsEBS',
+        'OPTIONS': {
+            'threaded': True}
+    },
 }
+
+DATABASE_ROUTERS = ['project_name.config.settings.dbrouter.SipRouter']
 
 # CACHES = {
 #     'default': env.cache('REDIS_URL')

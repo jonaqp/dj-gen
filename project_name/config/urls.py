@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^', include('allauth.urls')),
     url(r'^', include('project_name.apps.user.urls')),
 
+    url(r'^api/v1/', include('project_name.apps.siporacle.api.urls', namespace="api-usuario")),
+
+
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

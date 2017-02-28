@@ -27,3 +27,9 @@ django-allauth
 
 
 django-storages-redux
+
+#API
+django-cors-headers
+djangorestframework
+djangorestframework-jsonapi
+requests

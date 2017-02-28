@@ -29,12 +29,16 @@ THIRD_PARTY_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'rest_framework',
+    'corsheaders',
 )
 
 LOCAL_APPS = (
+    'project_name.apps.siporacle.apps.SiporacleConfig',
     'project_name.apps.core.apps.CoreConfig',
     'project_name.apps.module.apps.ModuleConfig',
     'project_name.apps.user.apps.UserConfig',
+
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -160,6 +164,26 @@ ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework_json_api.pagination.PageNumberPagination',
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework_json_api.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework_json_api.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
+    'DATETIME_FORMAT': '%Y-%m-%d %H:%M:%S',
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 LOGGING_DIR = str(PROJECT_ROOT.path('log'))
 LOGGING = {
