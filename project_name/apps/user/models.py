@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import (
-    AbstractBaseUser, Permission, Group,
-    AbstractUser)
+    AbstractBaseUser)
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.mail import send_mail
 from django.db import models
@@ -13,10 +12,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from project_name.apps.core import constants as core_constants
 from project_name.apps.core.manager import UserManager
-from project_name.apps.core.models import Role, Team
+from project_name.apps.core.models import Team
 from project_name.apps.core.utils.fields import BaseModel2
 from project_name.apps.core.utils.upload_folder import upload_user_profile
-from project_name.apps.module.models import RoleModule, RoleModuleItem
 
 AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
@@ -35,9 +33,9 @@ class CustomUser(AbstractBaseUser):
                                     blank=True, null=True, unique=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_invited = models.BooleanField(default=False)
     team = models.ManyToManyField(
-        Team, verbose_name=_('teams'), blank=True,
-        related_name="user_set", related_query_name="user",
+        Team, verbose_name=_('teams'), blank=True, related_name='team'
     )
 
     objects = UserManager()
@@ -61,10 +59,8 @@ class CustomUser(AbstractBaseUser):
         return 'You'
 
     def guess_display_name(self):
-        """Set a display name, if one isn't already set."""
         if self.display_name:
             return
-
         if self.first_name and self.last_name:
             dn = "%s %s" % (self.first_name, self.last_name[0])
         elif self.first_name:
@@ -132,7 +128,7 @@ class UserProfile(BaseModel2):
         return force_text(self.user.email)
 
     def get_full_name(self):
-        return "{0}{1}".format(self.first_name, self.last_name)
+        return "{0}{1}".format(self.user.first_name, self.user.last_name)
 
     @property
     def get_user_email(self):
@@ -166,3 +162,18 @@ class UserProfile(BaseModel2):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
+
+class UserGuest(BaseModel2):
+    user = models.ForeignKey(
+        User, verbose_name='user', related_name="%(app_label)s_%(class)s_user")
+    email = models.EmailField(
+        verbose_name='email address', max_length=255)
+    first_name = models.CharField(max_length=40, blank=True,
+                                  null=True, unique=False)
+    last_name = models.CharField(max_length=40, blank=True,
+                                 null=True, unique=False)
+    is_invited = models.BooleanField(default=True)
+
+    def __str__(self):
+        return force_text(self.user.email)

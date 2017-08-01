@@ -10,7 +10,7 @@ urlpatterns = [
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^', include('project_name.apps.core.urls')),
     url(r'^', include('allauth.urls')),
-    url(r'^', include('project_name.apps.user.urls')),
+    url(r'^', include('project_name.apps.user.urls', namespace="user_app")),
 
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

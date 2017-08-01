@@ -49,6 +49,7 @@ MIDDLEWARE = (
     'project_name.apps.core.middleware.current_user.UserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'project_name.config.urls'
@@ -103,7 +104,7 @@ WSGI_APPLICATION = 'project_name.config.wsgi.application'
 # Internationalization
 LANGUAGES = [
     ('es', _('Spanish')),
-    # ('en', _('English'))
+    ('en', _('English'))
 ]
 
 LANGUAGE_CODE = 'en'
@@ -143,6 +144,7 @@ STATIC_ROOT = str(PROJECT_ROOT.path('run/static'))
 MEDIA_ROOT = str(PROJECT_ROOT.path('run/media'))
 
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
@@ -210,7 +212,7 @@ LOGGING = {
         'project': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': str(PROJECT_ROOT.path('log/{{ project_name|lower }}.log')),
+            'filename': str(PROJECT_ROOT.path('log/project_name.log')),
             'formatter': 'verbose',
             'maxBytes': 1024 * 1024 * 10,  # 10 MB
             'backupCount': 10

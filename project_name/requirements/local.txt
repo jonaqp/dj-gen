@@ -14,5 +14,5 @@ Werkzeug
 
 django-test-plus
 factory-boy
-pytest-django==3.1.2
-pytest-sugar==0.7.1
+pytest-django
+pytest-sugar

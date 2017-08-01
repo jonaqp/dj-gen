@@ -1,5 +1,8 @@
 from django import template
 from django.db.models import Count
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext_lazy as _
 
 from project_name.apps.module.models import RoleModule, RoleModuleItem
 from project_name.apps.user.models import User
@@ -38,3 +41,30 @@ def tag_menu_siderbar(context):
                                        match=y.moduleitem.match)
                 dict_sub_menu[y.moduleitem.reference].append(add_module_dict)
     return {'result': result}
+
+
+@register.inclusion_tag('themes/partials/page-breadcrumb.html', takes_context=True)
+def tag_menu_breadcrumb(context):
+    request = context['request']
+    current_language = request.LANGUAGE_CODE
+    url_name = request.resolver_match.url_name
+
+    try:
+        namespace_name = request.resolver_match.namespaces[0]
+        parser = "{0}:{1}".format(str(namespace_name), url_name)
+    except IndexError:
+        namespace_name = 'index'
+        parser = "{0}".format(str(namespace_name))
+    url_parse = reverse('{0}'.format(str(parser)))
+
+    crumbs = url_parse.split('/')[2:-1]
+    home = _('Home')
+
+    link = u" <li>" \
+           u"<i class='icon-home2 position-left'></i>" \
+           u"<a href='/{0:s}/'>{1:s}</a>" \
+           u"</li>".format(str(current_language), str(home))
+    for index, name in enumerate(crumbs):
+        link += u"<li class='active'>{0:s}</li>".format(str(name).capitalize())
+
+    return {'result': mark_safe(link)}

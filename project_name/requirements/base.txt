@@ -7,7 +7,7 @@ pytz
 
 #Configuration
 django-environ
-pillow
+Pillow
 
 #Database
 psycopg2
@@ -26,4 +26,4 @@ django-allauth
 
 
 
-django-storages-redux
+django-storages

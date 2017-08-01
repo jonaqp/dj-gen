@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
-from .views import IndexView
+from . import views
 
 urlpatterns = [
-    url(r'^user/$', IndexView.as_view(), name="index"),
+    url(r'^user/$', views.IndexView.as_view(), name="index"),
+    url(r'^user-profile/$', views.UserProfileView.as_view(), name="profile"),
 ]
