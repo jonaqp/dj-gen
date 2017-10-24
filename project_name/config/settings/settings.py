@@ -35,6 +35,10 @@ LOCAL_APPS = (
     'project_name.apps.core.apps.CoreConfig',
     'project_name.apps.module.apps.ModuleConfig',
     'project_name.apps.user.apps.UserConfig',
+
+    'project_name.apps.restaurant.apps.RestaurantConfig',
+    'project_name.apps.reservation.apps.ReservationConfig',
+    'project_name.apps.kitcken.apps.KitckenConfig',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
