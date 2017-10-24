@@ -1,0 +1,64 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% load filter %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="container-detached">
+                        <div class="content-detached">
+                            <div class="panel panel-flat">
+                                <div class="panel-body">
+                                    <form method="post" action="" class="form" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label class="text-semibold">{{ form.restaurant.label }}</label>
+                                            {{ form.restaurant|add_class_form_control }}
+                                            <span class="help-block">{{ form.restaurant.errors }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-semibold">{{ form.name.label }}</label>
+                                            {{ form.name|add_class_form_control }}
+                                            <span class="help-block">{{ form.name.errors }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-semibold">{{ form.file.label }}</label>
+                                            {{ form.file|add_class_form_control }}
+                                            <span class="help-block">{{ form.file.errors }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-semibold">{{ form.amount.label }}</label>
+                                            {{ form.amount|add_class_form_control }}
+                                            <span class="help-block">{{ form.amount.errors }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-semibold">{{ form.description.label }}</label>
+                                            {{ form.description|add_class_form_control }}
+                                            <span class="help-block">{{ form.description.errors }}</span>
+                                        </div>
+
+                                        <div class="text-right">
+                                            <a class="btn btn-info" href="{% url 'restaurant_app:menu:list' %}"> <i
+                                                    class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
+                                            <button type="submit" class="btn btn-info"> {% trans "Submit" %} <i
+                                                    class="fa fa-arrow-right"> </i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}

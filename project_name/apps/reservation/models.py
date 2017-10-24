@@ -10,13 +10,13 @@ class Reservation(models.Model):
         Restaurant, verbose_name=_('restaurant'),
         related_name="%(app_label)s_%(class)s_restaurant")
     mozo = models.ForeignKey(
-        User, verbose_name='mozo',
+        User, verbose_name=_('mozo'),
         related_name="%(app_label)s_%(class)s_mozo")
     guest1 = models.ForeignKey(
-        User, verbose_name='mozo',
+        User, verbose_name=_('guest1'), blank=True, null=True,
         related_name="%(app_label)s_%(class)s_guest1")
     guest2 = models.CharField(
-        max_length=100, blank=False, null=False)
+        _('guest2'), max_length=100, blank=False, null=False)
     person_total = models.IntegerField(default=1)
     dateReservation = models.DateTimeField(
         blank=True, null=True,
@@ -25,7 +25,7 @@ class Reservation(models.Model):
     is_finished = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.id
+        return "Reservation {0}".format(self.id)
 
 
 class ReservationTable(models.Model):
@@ -40,7 +40,7 @@ class ReservationTable(models.Model):
         unique_together = ['reservation', 'restaurantTable']
 
     def __str__(self):
-        return self.reservation
+        return "Reservation {0}".format(self.reservation.id)
 
 
 class ReservationMenu(models.Model):
@@ -56,4 +56,4 @@ class ReservationMenu(models.Model):
         unique_together = ['reservation', 'restaurantMenu']
 
     def __str__(self):
-        return self.reservation
+        return "Reservation {0}".format(self.reservation.id)

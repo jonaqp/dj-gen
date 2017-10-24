@@ -50,4 +50,4 @@ class RestaurantTable(models.Model):
         unique_together = ['position', 'restaurant']
 
     def __str__(self):
-        return self.position
+        return "{0}".format(self.position)

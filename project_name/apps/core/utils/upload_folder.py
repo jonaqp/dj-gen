@@ -12,5 +12,5 @@ def upload_user_profile(instance, filename):
 
 def upload_restaurant_menu(instance, filename):
     file_base, extension = filename.split(".")
-    path_file = "{0:s}/{1:s}.{2:s}".format(str(instance.restaurant.id), str(instance.id), extension)
+    path_file = "{0:s}/{1:s}.{2:s}".format(str(instance.restaurant.id), str(file_base), extension)
     return os.path.join(prefix_menu, path_file)
