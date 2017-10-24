@@ -58,7 +58,22 @@ CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
+# --------------------AMAZON STORAGE----------------------------------
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_PRELOAD_METADATA = True
 
+STATICFILES_LOCATION = 'static'
+STATIC_URL = u"https://{0:s}/{1:s}/".format(AWS_S3_CUSTOM_DOMAIN,
+                                            STATICFILES_LOCATION)
+STATICFILES_STORAGE = 'project_name.apps.core.storage.storage_aws.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = u"https://{0:s}/{1:s}/".format(AWS_S3_CUSTOM_DOMAIN,
+                                           MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'project_name.apps.core.storage.storage_aws.MediaStorage'
 
 
 LOGGING['loggers'].update({
