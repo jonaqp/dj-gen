@@ -103,10 +103,10 @@ WSGI_APPLICATION = 'project_name.config.wsgi.application'
 # Internationalization
 LANGUAGES = [
     ('es', _('Spanish')),
-    # ('en', _('English'))
+    ('en', _('English'))
 ]
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es'
 
 LOCALE_PATHS = (
     str(PROJECT_ROOT.path('locale')),

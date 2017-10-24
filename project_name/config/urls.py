@@ -2,17 +2,18 @@
 """
 from django.conf import settings
 from django.conf.urls import url, include
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     url(settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^', include('project_name.apps.core.urls')),
     url(r'^', include('allauth.urls')),
     url(r'^', include('project_name.apps.user.urls')),
 
-]
+)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
