@@ -36,8 +36,8 @@ INSTALLED_APPS += DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ADMIN_URL = env('ADMIN_URL')
 
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND')
-EMAIL_CONFIG = env.email_url('EMAIL_URL_PROD')
-vars().update(EMAIL_CONFIG)
+EMAIL_URL = env.email_url('EMAIL_URL')
+vars().update(EMAIL_URL)
 
 
 # Caching sessions.
@@ -59,12 +59,9 @@ CSRF_COOKIE_HTTPONLY = True
 X_FRAME_OPTIONS = 'DENY'
 
 
+
+
 LOGGING['loggers'].update({
-    '': {
-        'handlers': ['sentry'],
-        'level': 'ERROR',
-        'propagate': False,
-    },
     '{{ project_name|lower }}': {
         'handlers': ['project'],
         'level': 'WARNING',

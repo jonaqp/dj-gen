@@ -61,8 +61,8 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = True
 
 # https://www.google.com/settings/security/lesssecureapps
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND')
-EMAIL_CONFIG = env.email_url('EMAIL_URL')
-vars().update(EMAIL_CONFIG)
+EMAIL_URL = env.email_url('EMAIL_URL')
+vars().update(EMAIL_URL)
 
 ADMIN_URL = env('ADMIN_URL')
 

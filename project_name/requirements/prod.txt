@@ -1,9 +1,3 @@
 -r base.txt
 
-#WSGI
-gunicorn==19.6.0
 
-
-#AWS
-boto
-django-storages-redux
