@@ -1,0 +1,112 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% load static %}
+{% load filter %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="container-detached">
+                        <div class="content-detached">
+                            <div class="panel panel-flat">
+                                <div class="panel-body">
+                                    <form method="post" action="" class="form">
+                                        {% csrf_token %}
+                                        <fieldset>
+                                            <legend class="text-semibold"><i
+                                                    class="icon-reading position-left"></i> {% trans 'reservation' %}
+                                            </legend>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.restaurantMenu.label }}</label>
+                                                        {{ form.restaurantMenu|add_class_form_control }}
+                                                        <span class="help-block">{{ form.restaurantMenu.errors }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group text-center">
+                                                        <label class="text-semibold">{{ form.is_kitchen_completed.label }}</label><br>
+                                                        <label class="checkbox-inline">
+                                                            {{ form.is_kitchen_completed|add_class_form_file }}
+                                                        </label>
+                                                        <span class="help-block">{{ form.is_kitchen_completed.errors }}</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </fieldset>
+
+                                        <br><br>
+
+                                        <div class="text-right">
+                                            <a class="btn btn-info" href="{% url 'kitchen_app:pedido:list' %}">
+                                                <i
+                                                        class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
+                                            <button type="submit" class="btn btn-info"> {% trans "Submit" %} <i
+                                                    class="fa fa-arrow-right"> </i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}
+
+{% block js_plugins_after %}
+    <script src="{% static "themes/global/pickers/pickadate/picker.js" %}"></script>
+    <script src="{% static "themes/global/pickers/pickadate/picker.date.js" %}"></script>
+{% endblock js_plugins_after %}
+
+
+{% block js_plugins_before %}
+    <script>
+    $(document).ready(function () {
+
+
+        $('.datepicker').pickadate({
+            format: 'yyyy-mm-dd',
+            formatSubmit: 'yyyy-mm-dd'
+        });
+        function addToFormset(parent, empty, formsetName, callback) {
+            const $parent = $(parent);
+            const $empty = $(empty);
+            const $totalFormset = $('#id_#name-TOTAL_FORMS'.replace('#name', formsetName));
+
+            const counter = parseInt($totalFormset.val());
+            const compiled = $empty.html().replace(/__prefix__/g, counter);
+            const node = $(compiled);
+            $parent.append(node);
+            $totalFormset.val(counter + 1);
+            callback(node);
+        }
+
+        const $btn_select_ciex = $('#btn-select-restaurantMenu');
+
+        $btn_select_ciex.on('click', function () {
+            addToFormset(
+                '#tbody-restaurantMenu-formset-parent', '#tbody-restaurantMenu-formset-empty', 'reservation_reservationmenu_reservation', function (node) {
+                    node.find('input.cls_restaurant_menu').val($select_ciex.find(':selected').text());
+                });
+
+        });
+    })
+    </script>
+
+{% endblock js_plugins_before %}
+

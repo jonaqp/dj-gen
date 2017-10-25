@@ -1,0 +1,44 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="container-detached">
+                        <div class="content-detached">
+                            <div class="panel panel-flat">
+                                <div class="panel-body">
+                                    <div class="content-group">
+
+                                        <div class="panel-body">
+                                            <div class="text-center">
+                                                <h1>{% trans 'WELCOME' %}</h1>
+                                                <br>
+                                                <h1>{% trans 'RESTAURANT' %}</h1>
+                                                <br>
+                                                <h1>{% trans 'COMER NO ES NADA' %}</h1>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}
+
+

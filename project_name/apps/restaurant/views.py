@@ -26,12 +26,22 @@ class RestaurantCreate(AuthCreateView):
     success_url = reverse_lazy('restaurant_app:restaurant:list')
     form_class = RestaurantForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["text_central"] = _("restaurant create")
+        return context
+
 
 class RestaurantUpdate(AuthUpdateView):
     template_name = 'themes/pages/restaurant/restaurant/restaurant_form.html'
     model = Restaurant
     success_url = reverse_lazy('restaurant_app:restaurant:list')
     form_class = RestaurantForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["text_central"] = _("restaurant update")
+        return context
 
 
 class RestaurantDelete(AuthDeleteView):
@@ -58,12 +68,22 @@ class MesaCreate(AuthCreateView):
     success_url = reverse_lazy('restaurant_app:mesa:list')
     form_class = RestaurantTable
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["text_central"] = _("Mesa create")
+        return context
+
 
 class MesaUpdate(AuthUpdateView):
     template_name = 'themes/pages/restaurant/mesa/mesa_confirm_delete.html'
     model = RestaurantTable
     success_url = reverse_lazy('restaurant_app:mesa:list')
     form_class = RestaurantTable
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["text_central"] = _("Mesa update")
+        return context
 
 
 class MesaDelete(AuthDeleteView):

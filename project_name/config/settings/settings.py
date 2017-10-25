@@ -137,6 +137,7 @@ MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     str(PROJECT_ROOT.path('static')),
+    str(PROJECT_ROOT.path('run/media')),
 ]
 
 STATICFILES_FINDERS = (
