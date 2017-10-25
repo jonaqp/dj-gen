@@ -18,9 +18,6 @@ class Team(BaseModel2):
     def __str__(self):
         return self.name
 
-    def natural_key(self):
-        return (self.name,)
-
 
 class Role(BaseModel2):
     team = models.ForeignKey(Team, on_delete=models.SET_NULL,
@@ -34,10 +31,7 @@ class Role(BaseModel2):
         verbose_name_plural = _('Roles')
 
     def __str__(self):
-        return "{0}:{1}".format(str(self.team.name), str(self.codename))
-
-    def natural_key(self):
-        return (self.name,)
+        return self.name
 
 
 class Permission(BaseModel2):

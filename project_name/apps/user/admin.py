@@ -57,7 +57,7 @@ class UserChangeForm(forms.ModelForm):
 
 class MyUserAdmin(UserAdmin):
     inlines = [UserProfileAdminInline]
-    list_per_page = 3
+    list_per_page = 10
     date_hierarchy = 'last_login'
     form = UserChangeForm
     add_form = UserCreationForm
@@ -72,7 +72,7 @@ class MyUserAdmin(UserAdmin):
     )
 
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'is_admin')}),
+        (None, {'fields': ('first_name', 'last_name', 'email', 'password', 'is_admin')}),
         (_('Permissions'), {'fields': ('is_active', 'is_admin',
                                        'team')}),
         (_('Important dates'), {'fields': ('last_login',)}),

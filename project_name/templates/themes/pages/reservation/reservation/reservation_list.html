@@ -1,0 +1,78 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                 {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="container-detached">
+        <div class="content-detached">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <div class="heading-elements">
+                        <a class="btn btn-primary heading-btn"
+                           href="{% url 'reservation_app:reservation:create' %}">{% trans "Create" %}</a>
+                    </div>
+                    <br/>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr class="bg-blue">
+                                <th>#</th>
+                                <th>{% trans "mozo" %}</th>
+                                <th>{% trans "guest" %}</th>
+                                <th>{% trans "person_total" %}</th>
+                                <th>{% trans "date reserva" %}</th>
+                                <th>{% trans "is_confirmed" %}</th>
+                                <th>{% trans "action" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for object in object_list %}
+                                <tr>
+                                    <td><b>{{ forloop.counter }} .-</b></td>
+                                    <td>{{ object.mozo }}</td>
+                                    <td>
+                                        {% if not object.guest1 %}
+                                            {{ object.guest2 }}
+                                        {% else %}
+                                            {{ object.guest1.first_name }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ object.person_total }}</td>
+                                    <td>{{ object.dateReservation }}</td>
+                                    <td>{{ object.is_confirmed }}</td>
+                                    <td>
+                                        <a href="{% url 'reservation_app:reservation:update' pk=object.id %}"><i
+                                                class="icon-pencil7"></i></a> &nbsp;
+                                        <a href="{% url 'reservation_app:reservation:delete' pk=object.id %}"><i
+                                                class="icon-trash"></i></a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4">No items.</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% include 'themes/partials/pagination.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}

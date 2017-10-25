@@ -13,7 +13,7 @@ urlpatterns = i18n_patterns(
     url(r'^', include('allauth.urls')),
     url(r'^', include('project_name.apps.user.urls')),
     url(r'^restaurant/', include('project_name.apps.restaurant.urls', namespace="restaurant_app")),
-
+    url(r'^reservation/', include('project_name.apps.reservation.urls', namespace="reservation_app")),
 )
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

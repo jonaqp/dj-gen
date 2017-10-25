@@ -16,7 +16,7 @@ class Reservation(models.Model):
         User, verbose_name=_('guest1'), blank=True, null=True,
         related_name="%(app_label)s_%(class)s_guest1")
     guest2 = models.CharField(
-        _('guest2'), max_length=100, blank=False, null=False)
+        _('guest2'), max_length=100, blank=True, null=True)
     person_total = models.IntegerField(default=1)
     dateReservation = models.DateTimeField(
         blank=True, null=True,

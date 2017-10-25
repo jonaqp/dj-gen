@@ -628,14 +628,14 @@ $(function () {
 });
 
 // functions chk formset
-function chk_form(div_id_table) {
-    $('#' + div_id_table).on("click", ".cls_chk", function () {
-        if ($(this).is(':checked')) {
-            $(this).attr("checked", true);
-            $(this).parent().addClass('checked');
-        } else {
-            $(this).attr("checked", false);
-            $(this).parent().removeClass('checked');
-        }
-    });
-}
+
+$(document).on("click", ".cls_chk", function () {
+    if ($(this).is(':checked')) {
+        $(this).attr("checked", true);
+        $(this).parent().addClass('checked');
+    } else {
+        $(this).attr("checked", false);
+        $(this).parent().removeClass('checked');
+    }
+});
+

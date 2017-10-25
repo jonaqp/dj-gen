@@ -1,6 +1,6 @@
 <div class="clearfix"></div>
 <br /><br />
-{% if is_paginated %}
+{% if allow_empty_first_page %}
     <div class="btn-toolbar col-md-5 col-md-push-7">
         {% if page_obj.has_previous %}
             <div class="btn-group">

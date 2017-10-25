@@ -1,0 +1,223 @@
+{% extends "themes/dashboard/base_dashboard.html" %}
+{% load i18n %}
+{% load static %}
+{% load filter %}
+{% block content %}
+    {% block page-content-siderbar %}
+        {{ block.super }}
+    {% endblock page-content-siderbar %}
+
+    {% block page-content-wrapper %}
+        <div class="content-wrapper">
+            {% block sidebar_page_header %}
+                {{ block.super }}
+            {% endblock sidebar_page_header %}
+
+            {% block sidebar_page_content %}
+                <div class="content">
+                    <div class="container-detached">
+                        <div class="content-detached">
+                            <div class="panel panel-flat">
+                                <div class="panel-body">
+                                    <form method="post" action="" class="form">
+                                        {% csrf_token %}
+                                        <fieldset>
+                                            <legend class="text-semibold"><i
+                                                    class="icon-reading position-left"></i> {% trans 'reservation' %}
+                                            </legend>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.restaurant.label }}</label>
+                                                        {{ form.restaurant|add_class_form_control }}
+                                                        <span class="help-block">{{ form.restaurant.errors }}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.mozo.label }}</label>
+                                                        {{ form.mozo|add_class_form_control }}
+                                                        <span class="help-block">{{ form.mozo.errors }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.guest1.label }}</label>
+                                                        {{ form.guest1|add_class_form_control }}
+                                                        <span class="help-block">{{ form.guest1.errors }}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.guest2.label }}</label>
+                                                        {{ form.guest2|add_class_form_control }}
+                                                        <span class="help-block">{{ form.guest2.errors }}</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.person_total.label }}</label>
+                                                        {{ form.person_total|add_class_form_control }}
+                                                        <span class="help-block">{{ form.person_total.errors }}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label class="text-semibold">{{ form.dateReservation.label }}</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="icon-calendar22"></i></span>
+                                                            {{ form.dateReservation|add_class_form_picker }}
+                                                        </div>
+                                                        <span class="help-block">{{ form.dateReservation.errors }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group text-center">
+                                                        <label class="text-semibold">{{ form.is_confirmed.label }}</label><br>
+                                                        <label class="checkbox-inline">
+                                                            {{ form.is_confirmed|add_class_form_file }}
+                                                        </label>
+                                                        <span class="help-block">{{ form.is_confirmed.errors }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group text-center">
+                                                        <label class="text-semibold">{{ form.is_finished.label }}</label><br>
+                                                        <label class="checkbox-inline">
+                                                            {{ form.is_finished|add_class_form_file }}
+                                                        </label>
+                                                        <span class="help-block">{{ form.is_finished.errors }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend class="text-semibold"><i
+                                                    class="icon-reading position-left"></i> {% trans 'Mesa Disponible' %}
+                                            </legend>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        {{ form_mesa.restaurantTable|add_class_form_control }}
+                                                        <span class="help-block">{{ form_mesa.restaurantTable.errors }}</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend class="text-semibold"><i
+                                                    class="icon-reading position-left"></i> {% trans 'Carta Menu' %}
+                                            </legend>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                  <button id="btn-select-restaurantMenu" class="btn btn-success" type="button">Add</button>
+                                                </div>
+                                                {{ formset_menu.management_form }}
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{% trans 'menu' %}</th>
+                                                        <th>{% trans 'remove' %}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tbody-restaurantMenu-formset-parent">
+                                                    {% for frm in formset_menu %}
+                                                        <tr>
+                                                            <td>
+                                                                {{ frm.id }}
+                                                                {{ frm.restaurantMenu }}
+                                                            </td>
+                                                            <td>
+                                                                {{ frm.DELETE }}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                    <tbody id="tbody-restaurantMenu-formset-empty"
+                                                           style="display: none">
+                                                    {% with formset_menu.empty_form as f %}
+                                                        <tr>
+                                                            <td>
+                                                                {{ frm.id }}
+                                                                {{ f.restaurantMenu }}
+                                                            </td>
+                                                            <td>{{ f.DELETE }}</td>
+                                                        </tr>
+                                                    {% endwith %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+                                        <br><br>
+
+
+                                        <div class="text-right">
+                                            <a class="btn btn-info" href="{% url 'reservation_app:reservation:list' %}">
+                                                <i
+                                                        class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
+                                            <button type="submit" class="btn btn-info"> {% trans "Submit" %} <i
+                                                    class="fa fa-arrow-right"> </i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock sidebar_page_content %}
+        </div>
+    {% endblock page-content-wrapper %}
+{% endblock %}
+
+{% block js_plugins_after %}
+    <script src="{% static "themes/global/pickers/pickadate/picker.js" %}"></script>
+    <script src="{% static "themes/global/pickers/pickadate/picker.date.js" %}"></script>
+{% endblock js_plugins_after %}
+
+
+{% block js_plugins_before %}
+    <script>
+    $(document).ready(function () {
+
+
+        $('.datepicker').pickadate({
+            format: 'yyyy-mm-dd',
+            formatSubmit: 'yyyy-mm-dd'
+        });
+        function addToFormset(parent, empty, formsetName, callback) {
+            const $parent = $(parent);
+            const $empty = $(empty);
+            const $totalFormset = $('#id_#name-TOTAL_FORMS'.replace('#name', formsetName));
+
+            const counter = parseInt($totalFormset.val());
+            const compiled = $empty.html().replace(/__prefix__/g, counter);
+            const node = $(compiled);
+            $parent.append(node);
+            $totalFormset.val(counter + 1);
+            callback(node);
+        }
+
+        const $btn_select_ciex = $('#btn-select-restaurantMenu');
+
+        $btn_select_ciex.on('click', function () {
+            addToFormset(
+                '#tbody-restaurantMenu-formset-parent', '#tbody-restaurantMenu-formset-empty', 'reservation_reservationmenu_reservation', function (node) {
+                    node.find('input.cls_restaurant_menu').val($select_ciex.find(':selected').text());
+                });
+
+        });
+    })
+    </script>
+
+{% endblock js_plugins_before %}
+
