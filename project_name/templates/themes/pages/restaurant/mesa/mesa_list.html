@@ -19,7 +19,7 @@
                 <div class="panel-heading">
                     <div class="heading-elements">
                         <a class="btn btn-primary heading-btn"
-                           href="{% url 'restaurant_app:menu:create' %}">{% trans "Create" %}</a>
+                           href="{% url 'restaurant_app:mesa:create' %}">{% trans "Create" %}</a>
                     </div>
                     <br/>
                 </div>
@@ -45,9 +45,9 @@
                                     <td>{{ object.count_table }}</td>
                                     <td>{{ object.is_occupied }}</td>
                                     <td>
-                                        <a href="{% url 'restaurant_app:menu:update' pk=object.id %}"><i
+                                        <a href="{% url 'restaurant_app:mesa:update' pk=object.id %}"><i
                                                 class="icon-pencil7"></i></a> &nbsp;
-                                        <a href="{% url 'restaurant_app:menu:delete' pk=object.id %}"><i
+                                        <a href="{% url 'restaurant_app:mesa:delete' pk=object.id %}"><i
                                                 class="icon-trash"></i></a>
                                     </td>
                                 </tr>
