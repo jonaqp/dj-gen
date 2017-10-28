@@ -63,7 +63,7 @@ class MesaList(AuthListView):
 
 
 class MesaCreate(AuthCreateView):
-    template_name = 'themes/pages/restaurant/mesa/mesa_confirm_delete.html'
+    template_name = 'themes/pages/restaurant/mesa/mesa_form.html'
     model = RestaurantTable
     success_url = reverse_lazy('restaurant_app:mesa:list')
     form_class = RestaurantTable
@@ -75,7 +75,7 @@ class MesaCreate(AuthCreateView):
 
 
 class MesaUpdate(AuthUpdateView):
-    template_name = 'themes/pages/restaurant/mesa/mesa_confirm_delete.html'
+    template_name = 'themes/pages/restaurant/mesa/mesa_form.html'
     model = RestaurantTable
     success_url = reverse_lazy('restaurant_app:mesa:list')
     form_class = RestaurantTable
