@@ -21,28 +21,28 @@
                                     <form method="post" action="" class="form">
                                         {% csrf_token %}
                                         <div class="form-group">
-                                            <label class="text-semibold">{{ form.name.label }}</label>
-                                            {{ form.name|add_class_form_control }}
-                                            <span class="help-block">{{ form.name.errors }}</span>
+                                            <label class="text-semibold">{{ form.restaurant.label }}</label>
+                                            {{ form.restaurant|add_class_form_control }}
+                                            <span class="help-block">{{ form.restaurant.errors }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="text-semibold">{{ form.description.label }}</label>
-                                            {{ form.description|add_class_form_control }}
-                                            <span class="help-block">{{ form.description.errors }}</span>
+                                            <label class="text-semibold">{{ form.position.label }}</label>
+                                            {{ form.position|add_class_form_control }}
+                                            <span class="help-block">{{ form.position.errors }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="text-semibold">{{ form.address.label }}</label>
-                                            {{ form.address|add_class_form_control }}
-                                            <span class="help-block">{{ form.address.errors }}</span>
+                                            <label class="text-semibold">{{ form.count_table.label }}</label>
+                                            {{ form.count_table|add_class_form_control }}
+                                            <span class="help-block">{{ form.count_table.errors }}</span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="text-semibold">{{ form.is_ready.label }}</label>
-                                            {{ form.is_ready|add_class_form_control }}
-                                            <span class="help-block">{{ form.is_ready.errors }}</span>
+                                            <label class="text-semibold">{{ form.is_occupied.label }}</label>
+                                            {{ form.is_occupied|add_class_form_control }}
+                                            <span class="help-block">{{ form.is_occupied.errors }}</span>
                                         </div>
 
                                         <div class="text-right">
-                                            <a class="btn btn-info" href="{% url 'restaurant_app:restaurant:list' %}"> <i
+                                            <a class="btn btn-info" href="{% url 'restaurant_app:mesa:list' %}"> <i
                                                     class="fa fa-arrow-left"></i> {% trans "Back" %}</a>
                                             <button type="submit" class="btn btn-info"> {% trans "Submit" %} <i
                                                     class="fa fa-arrow-right"> </i></button>

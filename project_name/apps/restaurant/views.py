@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from project_name.apps.core.mixins import (
     AuthListView, AuthCreateView, AuthUpdateView, AuthDeleteView
 )
-from .forms import RestaurantForm, RestaurantMenuForm, RestaurantTable
+from .forms import RestaurantForm, RestaurantMenuForm, RestaurantTableForm
 from .models import Restaurant, RestaurantTable, RestaurantMenu
 
 
@@ -66,7 +66,7 @@ class MesaCreate(AuthCreateView):
     template_name = 'themes/pages/restaurant/mesa/mesa_form.html'
     model = RestaurantTable
     success_url = reverse_lazy('restaurant_app:mesa:list')
-    form_class = RestaurantTable
+    form_class = RestaurantTableForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,7 +78,7 @@ class MesaUpdate(AuthUpdateView):
     template_name = 'themes/pages/restaurant/mesa/mesa_form.html'
     model = RestaurantTable
     success_url = reverse_lazy('restaurant_app:mesa:list')
-    form_class = RestaurantTable
+    form_class = RestaurantTableForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
